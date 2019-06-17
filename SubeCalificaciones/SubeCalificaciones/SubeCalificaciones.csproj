@@ -128,9 +128,42 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfesorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Alumno.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Clase.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pregunta.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profesor.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RespuestaAlumno.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ResultadoEvaluacion.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tema.cs">
+      <DependentUpon>TPDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TPDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TPDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TPDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TPDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TPDataModel.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -140,16 +173,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Alumno\Alumno.css" />
+    <Content Include="Content\Anonimo\Anonimo.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Profesor\Profesor.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\TPDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TPDataModel.edmx</DependentUpon>
+      <LastGenOutput>TPDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TPDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TPDataModel.edmx</DependentUpon>
+      <LastGenOutput>TPDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -157,9 +200,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TPDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\TPDataModel.edmx.diagram">
+    <Content Include="Models\TPDataModel.edmx.diagram">
       <DependentUpon>TPDataModel.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -181,10 +224,16 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Ingresar.cshtml" />
+    <Content Include="Views\Shared\_BaseLayout.cshtml" />
+    <Content Include="Views\Shared\Alumno\_AlumnoLayout.cshtml" />
+    <Content Include="Views\Shared\Profesor\_ProfesorLayout.cshtml" />
+    <Content Include="Views\Shared\Anonimo\_AnonimoLayout.cshtml" />
+    <Content Include="Views\Profesor\Index.cshtml" />
+    <Content Include="Views\Profesor\_PartialProfesorMenu.cshtml" />
+    <Content Include="Views\Shared\_PartialFooterPage.cshtml" />
+    <Content Include="Views\Alumno\_PartialAlumnoMenu.cshtml" />
+    <Content Include="Views\Alumno\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -201,6 +250,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,25 @@
+﻿.menu-user {
+    color: white;
+    margin-right: 10px;
+}
+
+.info-container {
+    float: right;
+    padding: 10px 0px;
+}
+
+@media (max-width: 768px) {
+    .menu-user {
+        float: left;
+    }
+
+    .menu-button {
+        float: left;
+        clear: both;
+        margin: 20px 0px;
+    }
+
+    .info-container {
+        float: none;
+    }
+}
