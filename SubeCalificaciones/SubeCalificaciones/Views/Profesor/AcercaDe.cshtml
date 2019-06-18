@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Profesor Acerca de";
+    Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+    if (Session["ProfesorName"].ToString() == String.Empty)
+    {
+        Response.Redirect("~/Home/Ingresar");
+    }
+}
+<h2>Acerca De</h2>
+
+<hr />
+
+<div class="jumbotron img-group"></div>
+
+<div class="container">
+    <p><i>Integrantes:</i></p>
+    <ul>
+        <li>Reyna Rondo Sánchez</li>
+        <li>Tomás Javier Gómez</li>
+        <li>Walther Pérez Graciano</li>
+        <li>Federico Pérez</li>
+    </ul>
+</div>
+

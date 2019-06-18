@@ -135,25 +135,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Alumno.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Clase.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pregunta.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Profesor.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RespuestaAlumno.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResultadoEvaluacion.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tema.cs">
-      <DependentUpon>TPDataModel.tt</DependentUpon>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TPDataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -169,6 +169,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TPDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TP_BddModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TP_BddModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TP_BddModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TP_BddModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TP_BddModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TP_BddModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioAnonimo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,6 +210,16 @@
       <DependentUpon>TPDataModel.edmx</DependentUpon>
       <LastGenOutput>TPDataModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\TP_BddModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TP_BddModel.edmx</DependentUpon>
+      <LastGenOutput>TP_BddModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TP_BddModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TP_BddModel.edmx</DependentUpon>
+      <LastGenOutput>TP_BddModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\TPDataModel.edmx">
@@ -203,6 +228,13 @@
     </EntityDeploy>
     <Content Include="Models\TPDataModel.edmx.diagram">
       <DependentUpon>TPDataModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\TP_BddModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TP_BddModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TP_BddModel.edmx.diagram">
+      <DependentUpon>TP_BddModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -235,6 +267,8 @@
     <Content Include="Views\Shared\_PartialFooterPage.cshtml" />
     <Content Include="Views\Alumno\_PartialAlumnoMenu.cshtml" />
     <Content Include="Views\Alumno\Index.cshtml" />
+    <Content Include="Views\Alumno\AcercaDe.cshtml" />
+    <Content Include="Views\Profesor\AcercaDe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

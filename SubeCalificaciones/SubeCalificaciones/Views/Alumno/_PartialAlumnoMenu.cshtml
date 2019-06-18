@@ -1,10 +1,4 @@
-﻿@model SubeCalificaciones.Models.Alumno
-@{
-    if (Session["AlumnoName"] == null)
-    {
-        Response.Redirect("~/Home/Ingresar");
-    }
-}
+﻿
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -16,7 +10,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Inicio", "Index", "Alumno")</li>
+                <li><a href="/Alumno">Inicio</a></li>
+                @*<li>@Html.ActionLink("Inicio", "Inicio", "Alumno")</li>*@
                 <li>@Html.ActionLink("Preguntas", "Preguntas", "Alumno")</li>
                 <li>@Html.ActionLink("Acerca de", "AcercaDe", "Alumno")</li>
             </ul>

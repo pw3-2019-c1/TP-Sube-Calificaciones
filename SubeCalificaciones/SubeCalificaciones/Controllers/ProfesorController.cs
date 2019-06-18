@@ -18,5 +18,9 @@ namespace SubeCalificaciones.Controllers
             Session.Abandon();
             return RedirectToAction("Ingresar", "Home");
         }
+        public ActionResult AcercaDe()
+        {
+            return View();
+        }
     }
 }
