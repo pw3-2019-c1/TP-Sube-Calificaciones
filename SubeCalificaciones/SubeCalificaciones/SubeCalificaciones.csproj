@@ -170,6 +170,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TPDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsuarioAnonimo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

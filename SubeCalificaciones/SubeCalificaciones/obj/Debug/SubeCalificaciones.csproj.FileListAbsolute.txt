@@ -80,8 +80,8 @@ C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCali
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.resources.dll
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CoreCompileInputs.cache
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CopyComplete
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.dll
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.pdb
+C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache
