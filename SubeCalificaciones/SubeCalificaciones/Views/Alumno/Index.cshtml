@@ -1,7 +1,11 @@
-﻿
+﻿@model SubeCalificaciones.Models.Alumno
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Alumno";
     Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
+    if ( Session["AlumnoName"] == null &&  Session["AlumnoSurn"] == null)
+    {
+        Response.Redirect("~/Home/Ingresar");
+    }
 }
 
-<h2>Welcome Alumno</h2>
+<h2>Bienvenido @Session["AlumnoName"].ToString() @Session["AlumnoSurn"].ToString()</h2>

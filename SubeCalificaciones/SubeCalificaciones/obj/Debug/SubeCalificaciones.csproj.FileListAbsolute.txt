@@ -84,4 +84,3 @@ C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCali
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CopyComplete
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.dll
 C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.pdb
-C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache
