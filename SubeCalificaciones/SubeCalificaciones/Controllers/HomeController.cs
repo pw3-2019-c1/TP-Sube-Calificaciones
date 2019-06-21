@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
+using SubeCalificaciones.Services;
 
 namespace SubeCalificaciones.Controllers
 {
@@ -22,39 +23,31 @@ namespace SubeCalificaciones.Controllers
             {
                 if (ua.IsProfesor == true)
                 {
-                    using (TP_20191CEntities1 db = new TP_20191CEntities1())
+                    var checkedData = Data.CheckProfesor(ua);
+                    if (checkedData != null)
                     {
-                        var userDetails = db.Profesors.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
-
-                        if (userDetails == null)
-                        {
-                            ua.LoggError = "Nombre o contraseña invalidos.";
-                            return View(ua);
-                        }
-                        else
-                        {
-                            Session["ProfesorName"] = (userDetails.Nombre).ToString();
-                            Session["ProfesorSurn"] = (userDetails.Apellido).ToString();
-                            return Redirect("/Profesor");
-                        }
+                        Session["ProfesorName"] = (checkedData.Nombre).ToString();
+                        Session["ProfesorSurn"] = (checkedData.Apellido).ToString();
+                        return Redirect("/Profesor");
+                    }
+                    else
+                    {
+                        ua.LoggError = "Nombre o contraseña invalidos.";
+                        return View(ua);
                     }
                 } else
                 {
-                    using (TP_20191CEntities1 db = new TP_20191CEntities1())
+                    var checkedData = Data.CheckAlumno(ua);
+                    if (checkedData != null)
                     {
-                        var userDetails = db.Alumnoes.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
-
-                        if (userDetails == null)
-                        {
-                            ua.LoggError = "Nombre o contraseña invalidos.";
-                            return View(ua);
-                        }
-                        else
-                        {
-                            Session["AlumnoName"] = userDetails.Nombre;
-                            Session["AlumnoSurn"] = userDetails.Apellido;
-                            return Redirect("/Alumno");
-                        }
+                        Session["AlumnoName"] = (checkedData.Nombre).ToString();
+                        Session["AlumnoSurn"] = (checkedData.Apellido).ToString();
+                        return Redirect("/Alumno");
+                    }
+                    else
+                    {
+                        ua.LoggError = "Nombre o contraseña invalidos.";
+                        return View(ua);
                     }
                 }
             }
