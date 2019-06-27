@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SubeCalificaciones.Models
+namespace SubeCalificaciones
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace SubeCalificaciones.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Alumno()
         {
-            this.RespuestaAlumnoes = new HashSet<RespuestaAlumno>();
+            this.RespuestaAlumno = new HashSet<RespuestaAlumno>();
         }
     
         public int IdAlumno { get; set; }
@@ -34,6 +34,6 @@ namespace SubeCalificaciones.Models
         public System.DateTime FechaHoraCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RespuestaAlumno> RespuestaAlumnoes { get; set; }
+        public virtual ICollection<RespuestaAlumno> RespuestaAlumno { get; set; }
     }
 }

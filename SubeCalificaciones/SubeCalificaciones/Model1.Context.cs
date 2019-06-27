@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SubeCalificaciones.Models
+namespace SubeCalificaciones
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TP_20191CEntities1 : DbContext
+    public partial class TP_20191CEntities : DbContext
     {
-        public TP_20191CEntities1()
-            : base("name=TP_20191CEntities1")
+        public TP_20191CEntities()
+            : base("name=TP_20191CEntities")
         {
         }
     
@@ -25,12 +25,12 @@ namespace SubeCalificaciones.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Alumno> Alumnoes { get; set; }
-        public virtual DbSet<Clase> Clases { get; set; }
-        public virtual DbSet<Pregunta> Preguntas { get; set; }
-        public virtual DbSet<Profesor> Profesors { get; set; }
-        public virtual DbSet<RespuestaAlumno> RespuestaAlumnoes { get; set; }
-        public virtual DbSet<ResultadoEvaluacion> ResultadoEvaluacions { get; set; }
-        public virtual DbSet<Tema> Temas { get; set; }
+        public virtual DbSet<Alumno> Alumno { get; set; }
+        public virtual DbSet<Clase> Clase { get; set; }
+        public virtual DbSet<Pregunta> Pregunta { get; set; }
+        public virtual DbSet<Profesor> Profesor { get; set; }
+        public virtual DbSet<RespuestaAlumno> RespuestaAlumno { get; set; }
+        public virtual DbSet<ResultadoEvaluacion> ResultadoEvaluacion { get; set; }
+        public virtual DbSet<Tema> Tema { get; set; }
     }
 }

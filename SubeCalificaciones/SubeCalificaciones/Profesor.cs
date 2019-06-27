@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SubeCalificaciones.Models
+namespace SubeCalificaciones
 {
     using System;
     using System.Collections.Generic;
@@ -17,9 +17,9 @@ namespace SubeCalificaciones.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profesor()
         {
-            this.Preguntas = new HashSet<Pregunta>();
-            this.Preguntas1 = new HashSet<Pregunta>();
-            this.RespuestaAlumnoes = new HashSet<RespuestaAlumno>();
+            this.Pregunta = new HashSet<Pregunta>();
+            this.Pregunta1 = new HashSet<Pregunta>();
+            this.RespuestaAlumno = new HashSet<RespuestaAlumno>();
         }
     
         public int IdProfesor { get; set; }
@@ -31,10 +31,10 @@ namespace SubeCalificaciones.Models
         public System.DateTime FechaHoraCreacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pregunta> Preguntas { get; set; }
+        public virtual ICollection<Pregunta> Pregunta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pregunta> Preguntas1 { get; set; }
+        public virtual ICollection<Pregunta> Pregunta1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RespuestaAlumno> RespuestaAlumnoes { get; set; }
+        public virtual ICollection<RespuestaAlumno> RespuestaAlumno { get; set; }
     }
 }

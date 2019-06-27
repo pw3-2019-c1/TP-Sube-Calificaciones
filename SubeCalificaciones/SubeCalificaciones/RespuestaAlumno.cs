@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SubeCalificaciones.Models
+namespace SubeCalificaciones
 {
     using System;
     using System.Collections.Generic;

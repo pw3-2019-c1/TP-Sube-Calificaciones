@@ -6,15 +6,15 @@ using SubeCalificaciones.Models;
 
 namespace SubeCalificaciones.Services
 {
-    public class Data
+    public class ServicioUsuarios
     {
-        protected static TP_20191CEntities1 db = new TP_20191CEntities1();
+        protected static TP_20191CEntities db = new TP_20191CEntities();
 
         public static Profesor CheckProfesor(UsuarioAnonimo ua)
         {
             using (db)
             {
-                var userDetails = db.Profesors.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
+                var userDetails = db.Profesor.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
                 //return (userDetails != null) ? true : false;
                 return userDetails;
             }
@@ -24,7 +24,7 @@ namespace SubeCalificaciones.Services
         {
             using (db)
             {
-                var userDetails = db.Alumnoes.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
+                var userDetails = db.Alumno.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
                 //return (userDetails != null) ? true : false;
                 return userDetails;
             }

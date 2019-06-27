@@ -7,23 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SubeCalificaciones.Models
+namespace SubeCalificaciones
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Tema
+    public partial class Clase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tema()
+        public Clase()
         {
-            this.Preguntas = new HashSet<Pregunta>();
+            this.Pregunta = new HashSet<Pregunta>();
         }
     
-        public int IdTema { get; set; }
+        public int IdClase { get; set; }
         public string Nombre { get; set; }
+        public System.DateTime Fecha { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pregunta> Preguntas { get; set; }
+        public virtual ICollection<Pregunta> Pregunta { get; set; }
     }
 }
