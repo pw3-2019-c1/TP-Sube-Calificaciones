@@ -135,55 +135,40 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Alumno.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Clase.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Pregunta.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Profesor.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RespuestaAlumno.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ResultadoEvaluacion.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Tema.cs">
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TPDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TPDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TPDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TPDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TPDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TPDataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TP_BddModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TP_BddModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TP_BddModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TP_BddModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TP_BddModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TP_BddModel.edmx</DependentUpon>
+      <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioAnonimo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -202,41 +187,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\TPDataModel.Context.tt">
+    <Content Include="Models\TDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TPDataModel.edmx</DependentUpon>
-      <LastGenOutput>TPDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>TDataModel.edmx</DependentUpon>
+      <LastGenOutput>TDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\TPDataModel.tt">
+    <Content Include="Models\TDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TPDataModel.edmx</DependentUpon>
-      <LastGenOutput>TPDataModel.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TP_BddModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TP_BddModel.edmx</DependentUpon>
-      <LastGenOutput>TP_BddModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TP_BddModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TP_BddModel.edmx</DependentUpon>
-      <LastGenOutput>TP_BddModel.cs</LastGenOutput>
+      <DependentUpon>TDataModel.edmx</DependentUpon>
+      <LastGenOutput>TDataModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\TPDataModel.edmx">
+    <EntityDeploy Include="Models\TDataModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TPDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>TDataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\TPDataModel.edmx.diagram">
-      <DependentUpon>TPDataModel.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\TP_BddModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TP_BddModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\TP_BddModel.edmx.diagram">
-      <DependentUpon>TP_BddModel.edmx</DependentUpon>
+    <Content Include="Models\TDataModel.edmx.diagram">
+      <DependentUpon>TDataModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
