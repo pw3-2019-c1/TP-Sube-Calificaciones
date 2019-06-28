@@ -19,11 +19,7 @@ namespace SubeCalificaciones
         }
         protected void Session_Start(Object sender, EventArgs e)
         {
-            Session["AlumnoName"] = String.Empty; 
-            Session["AlumnoSurn"] = String.Empty;
-
-            Session["ProfesorName"] = String.Empty;
-            Session["ProfesorSurn"] = String.Empty;
+            Session["UserSession"] = String.Empty;
         }
     }
 }

@@ -171,3 +171,4 @@ C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificac
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CopyComplete
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.dll
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.pdb
+C:\Users\fede\Desktop\Tp-Web3\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache
