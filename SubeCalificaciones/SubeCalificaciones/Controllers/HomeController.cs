@@ -23,11 +23,12 @@ namespace SubeCalificaciones.Controllers
             {
                 if (ua.IsProfesor == true)
                 {
-                    var checkedData = Data.CheckProfesor(ua);
+                    var checkedData = UsuarioService.CheckProfesor(ua);
                     if (checkedData != null)
                     {
                         Session["ProfesorName"] = (checkedData.Nombre).ToString();
                         Session["ProfesorSurn"] = (checkedData.Apellido).ToString();
+                        Session["ProfesorId"] = (checkedData.IdProfesor).ToString();
                         return Redirect("/Profesor");
                     }
                     else
@@ -37,7 +38,7 @@ namespace SubeCalificaciones.Controllers
                     }
                 } else
                 {
-                    var checkedData = Data.CheckAlumno(ua);
+                    var checkedData = UsuarioService.CheckAlumno(ua);
                     if (checkedData != null)
                     {
                         Session["AlumnoName"] = (checkedData.Nombre).ToString();
