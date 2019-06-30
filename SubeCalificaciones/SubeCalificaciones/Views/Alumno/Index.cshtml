@@ -2,12 +2,11 @@
     ViewBag.Title = "Alumno Home";
     Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
 }
-
-<h2>¡Sube tus calificaciones!</h2>
-<p>Contestando preguntas referidas a lo visto en clase, suma puntos cruciales para subir tus calificaciones al final de la cursada.</p>
-<br />
-
 <div class="container">
+    <h2>¡Sube tus calificaciones!</h2>
+    <p>Contestando preguntas referidas a lo visto en clase, suma puntos cruciales para subir tus calificaciones al final de la cursada.</p>
+    <br />
+
     <div class="row">
         <div class="col-lg-12 col-md-6 col-sm-12">
             <h4>Tabla de posiciones</h4>
@@ -128,18 +127,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h4>Pregunta sin responder</h4>
-                </div>
-                <div class="list-group">
-                    @foreach (var notResp in ViewBag.NoRespList)
-                    {
-                      <a href="/Alumno/Preguntas/@notResp.QuestionId" class="list-group-item">@notResp.QuestionId - @notResp.Question</a>
-                    }
+        @if (ViewBag.NoRespList != null)
+        {
+            <div class="col-sm-6">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4>Pregunta sin responder</h4>
+                    </div>
+                    <div class="list-group">
+                        @foreach (var notResp in ViewBag.NoRespList)
+                        {
+                          <a href="/Alumno/Preguntas/@notResp.QuestionId" class="list-group-item">@notResp.QuestionId - @notResp.Question</a>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </div>
