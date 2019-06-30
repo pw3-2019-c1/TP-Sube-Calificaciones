@@ -94,5 +94,29 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
+		public static int ValidarExistencia(Pregunta p)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                var PreguntaExistente = (from Pregunta in db.Preguntas
+                                         where Pregunta.Nro == p.Nro && Pregunta.IdClase == p.IdClase
+                                         select Pregunta).Count();
+
+                return PreguntaExistente;
+            }
+        }
+        public static int ValidarFechaHasta(Pregunta p)
+        {
+            //return Convert.ToDateTime(p.FechaDisponibleDesde).Date.CompareTo(p.FechaDisponibleHasta);
+            return DateTime.Compare(Convert.ToDateTime(p.FechaDisponibleDesde).Date, Convert.ToDateTime(p.FechaDisponibleHasta).Date);
+        }
+        public static void CrearPregunta(Pregunta p)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                db.Pregunta.Add(p);
+                db.SaveChanges();
+            }
+        }
     }
 }
