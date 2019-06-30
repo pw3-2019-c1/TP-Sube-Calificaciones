@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
+using SubeCalificaciones.Services.ProfesorS;
 
 namespace SubeCalificaciones.Controllers
 {
@@ -23,6 +24,19 @@ namespace SubeCalificaciones.Controllers
             else
             {
                 return View();
+            }
+        }
+        public ActionResult AdminPreguntas()
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                int alID = Convert.ToInt32(Session["UserSession"]);
+                List<Pregunta> preguntas = Data.GetPreguntas();
+                return View(preguntas);
             }
         }
         public ActionResult AcercaDe()
