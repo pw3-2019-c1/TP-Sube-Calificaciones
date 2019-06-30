@@ -11,6 +11,13 @@ namespace SubeCalificaciones.Controllers
 {
     public class AlumnoController : Controller
     {
+        public readonly Dictionary<string, int> FiltrosPreguntas = new Dictionary<string, int>() {
+            { "Todas", -1 },
+            { "SinCorregir", 0 },
+            { "Correctas", 1 },
+            { "Regular", 2 },
+            { "Mal", 3 }
+        };
         public bool CheckSession()
         {
             return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
@@ -55,17 +62,30 @@ namespace SubeCalificaciones.Controllers
             }
         }
 
-        public ActionResult Preguntas(String Filtro="Todas")
+        public ActionResult Preguntas(string filtro)
         {
-            if (!CheckSession())
+            //if (!CheckSession())
+            //{
+            //    return RedirectToAction("Ingresar", "Home");
+            //}
+            //else
+            //{
+            List<Pregunta> preguntas;
+            if (FiltrosPreguntas[filtro] == 0)
             {
-                return RedirectToAction("Ingresar", "Home");
+                preguntas = PreguntaService.GetPreguntasSinCorregir();
+            }
+            else if(FiltrosPreguntas[filtro] > 0)
+            {
+                preguntas = PreguntaService.GetPreguntasCorregidas(FiltrosPreguntas[filtro]);
+                
             }
             else
             {
-                List<Pregunta> preguntas = PreguntaService.GetPreguntas();
-                return View(preguntas);
+                preguntas = PreguntaService.GetPreguntas();
             }
+            return View(preguntas);
+            //}
         }
         public ActionResult VerRespuesta(int idPregunta)
         {

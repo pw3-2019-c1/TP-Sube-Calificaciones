@@ -25,5 +25,10 @@ namespace SubeCalificaciones.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RespuestaAlumno> RespuestaAlumnoes { get; set; }
+
+        public static implicit operator ResultadoEvaluacion(int v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
