@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
-using SubeCalificaciones.Services.ProfesorS;
+using SubeCalificaciones.Services.PreguntaS;
 
 namespace SubeCalificaciones.Controllers
 {
@@ -34,9 +34,44 @@ namespace SubeCalificaciones.Controllers
             }
             else
             {
-                int alID = Convert.ToInt32(Session["UserSession"]);
-                List<Pregunta> preguntas = Data.GetPreguntas();
+                List<Pregunta> preguntas = PreguntaService.GetPreguntas();
                 return View(preguntas);
+            }
+        }
+        public ActionResult  ModificarPregunta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+                return View(pregunta);
+            }
+        }
+        public ActionResult EvaluarPregunta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+                return View(pregunta);
+            }
+        }
+        public ActionResult EliminarPregunta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                PreguntaService.DeletePregunta(idPregunta);
+                return RedirectToAction("AdminPreguntas", "Profesor");
             }
         }
         public ActionResult AcercaDe()

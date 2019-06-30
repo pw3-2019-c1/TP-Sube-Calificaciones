@@ -9,6 +9,7 @@ namespace SubeCalificaciones.Services.ProfesorS
     public class Data
     {
         private static TP_20191CEntities db;
+        /*
         private static int SuperIdAlumno;
         public static void SetAlumnoId(int id)
         {
@@ -22,12 +23,6 @@ namespace SubeCalificaciones.Services.ProfesorS
                 return al;
             }
         }
-        public static List<Pregunta> GetPreguntas() {
-            using (db = new TP_20191CEntities())
-            {
-                List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema") orderby p.Nro descending select p).ToList();
-                return preguntasList;
-            }
-        }
+        */
     }
 }

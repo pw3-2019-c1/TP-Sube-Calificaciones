@@ -29,11 +29,11 @@
             <td>@pregunta.Nro</td>
             <td>@pregunta.Clase.Nombre</td>
             <td>@pregunta.Tema.Nombre</td>
-            <td>@pregunta.Pregunta1</td>
+            <td>@Html.ActionLink(pregunta.Pregunta1, "ModificarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
             <td>@pregunta.FechaDisponibleDesde</td>
             <td>@pregunta.FechaDisponibleHasta</td>
-            <td><a>x</a></td>
-            <td>x</td>
+            <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor",  new { idPregunta=pregunta.IdPregunta }, null)</td>
+            <td class="text-center">@Html.ActionLink("X", "EliminarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
         </tr>
         }
     </tbody>
