@@ -22,7 +22,7 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                Pregunta pregunta = (from p in db.Preguntas where p.IdPregunta == idPregunta select p).FirstOrDefault();
+                Pregunta pregunta = (from p in db.Preguntas.Include("Clase").Include("Tema").Include("RespuestaAlumnoes") where p.IdPregunta == idPregunta select p).FirstOrDefault();
                 return pregunta;
             }
         }
@@ -51,6 +51,14 @@ namespace SubeCalificaciones.Services.PreguntaS
                 Pregunta preguntaOld = (from p in db.Preguntas where p.IdPregunta == preguntaActualizada.IdPregunta select p).FirstOrDefault();
                 preguntaOld = preguntaActualizada; // Probar si esto funciona o si hay que pasar uno por uno.
                 db.SaveChanges();
+            }
+        }
+        public static List<RespuestaAlumno> GetRespuestas(int idPregunta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                List<RespuestaAlumno> respuestasList = (from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r).ToList();
+                return respuestasList;
             }
         }
     }

@@ -1,0 +1,24 @@
+﻿@model IList<SubeCalificaciones.Models.RespuestaAlumno>
+@{
+    ViewBag.Title = "Profesor Evaluar Respuestas";
+    Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+}
+
+<h2>Respuestas</h2>
+<p>@ViewBag.Pregunta.Clase.Nombre - @ViewBag.Pregunta.Tema.Nombre</p>
+<h2>@ViewBag.Pregunta.Nro. @ViewBag.Pregunta.Pregunta1</h2>
+<h4>(@ViewBag.Pregunta.FechaDisponibleDesde.ToString("MM/dd/yyyy") - @ViewBag.Pregunta.FechaDisponibleHasta.ToString("MM/dd/yyyy"))</h4>
+<br />
+<h4>Preguntas:</h4>
+<table class="table table-striped table-hover">
+    <tbody>
+        @foreach (var respuesta in Model)
+        {
+            <tr>
+                <td><p>@respuesta.FechaHoraRespuesta</p>@respuesta.Alumno.Nombre @respuesta.Alumno.Apellido</td>
+                <td>@respuesta.Respuesta</td>
+                <td>@respuesta.ResultadoEvaluacion.Resultado</td>
+            </tr>
+        }
+    </tbody>
+</table>
