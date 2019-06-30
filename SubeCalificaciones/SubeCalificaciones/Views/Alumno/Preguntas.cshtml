@@ -1,0 +1,44 @@
+﻿@model IList<SubeCalificaciones.Models.Pregunta>
+
+@{
+                /**/
+
+                ViewBag.Title = "Preguntas";
+                Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
+}
+
+<h2>Preguntas</h2>
+
+<p class="lead">Recuerda que cuanto antes respondas correctamente, más chances tienes de sumar un mejor puntaje, y si tu respuesta es la más completa, recibirás un puntaje bonus!</p>
+
+<p>
+    <a href="/Alumno/Preguntas/Todas" class="btn btn-xs btn-link">Todas</a>
+    <a href="/Alumno/Preguntas/SinCorregir" class="btn btn-xs btn-link">Sin Corregir</a>
+    <a href="/Alumno/Preguntas/Correctas" class="btn btn-xs btn-link">Correctas</a>
+    <a href="/Alumno/Preguntas/Regular" class="btn btn-xs btn-link">Regular</a>
+    <a href="/Alumno/Preguntas/Mal" class="btn btn-xs btn-link">Mal</a>
+</p>
+
+
+@foreach (var pregunta in Model)
+{
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Clase @pregunta.Clase.IdClase - @pregunta.Clase.Nombre
+    </div>
+    <div class="panel-body">
+        @pregunta.Nro. @pregunta.Pregunta1 <a href="/Alumno/VerRespuesta" class="btn btn-xs btn-link">Ver</a>
+    </div>
+    <div class="panel-footer">Panel footer</div>
+</div>
+    <tr>
+        <td></td>
+        <td>@pregunta.Clase.Nombre</td>
+        <td>@pregunta.Tema.Nombre</td>
+        <td>@Html.ActionLink(pregunta.Pregunta1, "ModificarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
+        <td>@pregunta.FechaDisponibleDesde</td>
+        <td>@pregunta.FechaDisponibleHasta</td>
+        <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
+        <td class="text-center">@Html.ActionLink("X", "EliminarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
+    </tr>
+}

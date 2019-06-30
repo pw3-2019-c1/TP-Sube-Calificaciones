@@ -1,0 +1,19 @@
+﻿@model SubeCalificaciones.Models.Pregunta
+
+@{
+    ViewBag.Title = "ResponderPregunta";
+    Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
+}
+
+<h2>ResponderPregunta</h2>
+
+@Model.IdPregunta
+@Model.Nro
+@Model.Clase
+@Model.FechaDisponibleHasta
+@Model.Pregunta1
+
+<form action="/Alumno/ResponderPregunta" method="post">
+
+
+</form>

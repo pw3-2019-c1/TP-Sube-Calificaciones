@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
 using SubeCalificaciones.Services.AlumnoS;
+using SubeCalificaciones.Services.PreguntaS;
 
 namespace SubeCalificaciones.Controllers
 {
@@ -53,6 +54,56 @@ namespace SubeCalificaciones.Controllers
                 }
             }
         }
+
+        public ActionResult Preguntas(String Filtro="Todas")
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                List<Pregunta> preguntas = PreguntaService.GetPreguntas();
+                return View(preguntas);
+            }
+        }
+        public ActionResult VerRespuesta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+                return View(pregunta);
+            }
+        }
+        public ActionResult ResponderPregunta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+                return View(pregunta);
+            }
+        }
+        [HttpPost]
+        public ActionResult ResponderPregunta()
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Preguntas");
+            }
+        }
+
         public ActionResult AcercaDe()
         {
             if (!CheckSession())

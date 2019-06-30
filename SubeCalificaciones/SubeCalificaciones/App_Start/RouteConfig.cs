@@ -14,6 +14,12 @@ namespace SubeCalificaciones
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ResponderPregunta",
+                url: "Alumno/ResponderPregunta/{idPregunta}",
+                defaults: new { controller = "Alumno", action = "ResponderPregunta" }
+            );
+
+            routes.MapRoute(
                 name: "Alumno",
                 url: "{controller}/{action}/{extra}",
                 defaults: new { controller = "Alumno", action = "Index", extra = UrlParameter.Optional }

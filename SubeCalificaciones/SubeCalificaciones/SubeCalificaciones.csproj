@@ -245,6 +245,9 @@
     <Content Include="Views\Profesor\AdminPreguntas.cshtml" />
     <Content Include="Views\Profesor\.cshtml" />
     <Content Include="Views\Profesor\EvaluarRespuestas.cshtml" />
+    <Content Include="Views\Alumno\ResponderPregunta.cshtml" />
+    <Content Include="Views\Alumno\Preguntas.cshtml" />
+    <Content Include="Views\Alumno\VerRespuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
