@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Profesor Evaluar Respuestas";
     Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+    bool PrimerNoEvaluada = false;
 }
 
 <h2>Respuestas</h2>
@@ -27,13 +28,27 @@
                 <p>@respuesta.FechaHoraRespuesta</p>@respuesta.Alumno.Nombre @respuesta.Alumno.Apellido
             </td>
             <td>@respuesta.Respuesta</td>
-            @if (respuesta.ResultadoEvaluacion != null) 
+            @if (respuesta.ResultadoEvaluacion != null)
             {
                 <td>@respuesta.ResultadoEvaluacion.Resultado</td>
             }
             else
             {
-            <td>Sin corregir</td>
+                if (!PrimerNoEvaluada)
+                {
+                    <td>
+                        @Html.ActionLink("Correcta", "CorregirRespuesta", "Profesor", new { idRespuesta = respuesta.IdRespuestaAlumno, resultadoEvaluacion = 1 }, null)
+                        @Html.ActionLink("Regular", "CorregirRespuesta", "Profesor", new { idRespuesta = respuesta.IdRespuestaAlumno, resultadoEvaluacion = 2 }, null)
+                        @Html.ActionLink("Mal", "CorregirRespuesta", "Profesor", new { idRespuesta = respuesta.IdRespuestaAlumno, resultadoEvaluacion = 3 }, null)
+                    </td>
+                    PrimerNoEvaluada = true;
+                }
+                else
+                {
+                    <td>
+                        Sin corregir
+                    </td>
+                }
             }
         </tr>
         }

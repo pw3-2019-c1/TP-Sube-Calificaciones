@@ -14,6 +14,7 @@ namespace SubeCalificaciones.Controllers
         {
             return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
         }
+
         // GET: Profesor
         public ActionResult Index()
         {
@@ -26,6 +27,7 @@ namespace SubeCalificaciones.Controllers
                 return View();
             }
         }
+
         public ActionResult AdminPreguntas()
         {
             if (!CheckSession())
@@ -38,6 +40,7 @@ namespace SubeCalificaciones.Controllers
                 return View(preguntas);
             }
         }
+
         public ActionResult  ModificarPregunta(int idPregunta)
         {
             if (!CheckSession())
@@ -50,6 +53,20 @@ namespace SubeCalificaciones.Controllers
                 return View(pregunta);
             }
         }
+
+        public ActionResult EliminarPregunta(int idPregunta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                PreguntaService.DeletePregunta(idPregunta);
+                return RedirectToAction("AdminPreguntas", "Profesor");
+            }
+        }
+
         public ActionResult EvaluarRespuestas(int idPregunta, int filtro)
         {
             if (!CheckSession())
@@ -64,7 +81,7 @@ namespace SubeCalificaciones.Controllers
                 return View(respuestas);
             }
         }
-        public ActionResult EliminarPregunta(int idPregunta)
+        public ActionResult CorregirRespuesta(int idRespuesta, int resultadoEvaluacion)
         {
             if (!CheckSession())
             {
@@ -72,10 +89,13 @@ namespace SubeCalificaciones.Controllers
             }
             else
             {
-                PreguntaService.DeletePregunta(idPregunta);
-                return RedirectToAction("AdminPreguntas", "Profesor");
+                int idProfesor = Convert.ToInt32(Session["UserSession"]);
+                PreguntaService.UpdateRespuesta(idRespuesta, resultadoEvaluacion, idProfesor);
+                RespuestaAlumno resp = PreguntaService.GetRespuesta(idRespuesta);
+                return RedirectToAction("EvaluarRespuestas", new { idPregunta = resp.IdPregunta, filtro = -1 });
             }
         }
+
         public ActionResult AcercaDe()
         {
             if (!CheckSession())
@@ -87,6 +107,7 @@ namespace SubeCalificaciones.Controllers
                 return View();
             }
         }
+
         public ActionResult Logout()
         {
             Session.Abandon();

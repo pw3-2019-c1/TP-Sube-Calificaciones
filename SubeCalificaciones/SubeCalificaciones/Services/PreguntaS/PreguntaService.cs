@@ -26,6 +26,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 return pregunta;
             }
         }
+
         public static void AddPregunta(Pregunta preguntaNueva)
         {
             using (db = new TP_20191CEntities())
@@ -34,6 +35,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
+
         public static void DeletePregunta(int idPregunta)
         {
             using (db = new TP_20191CEntities())
@@ -53,6 +55,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
+
         public static List<RespuestaAlumno> GetRespuestas(int idPregunta, int filtro)
         {
             using (db = new TP_20191CEntities())
@@ -66,8 +69,29 @@ namespace SubeCalificaciones.Services.PreguntaS
                     query = query.Where(r => r.ResultadoEvaluacion == null);
                 }
                 query = query.OrderBy(r => r.FechaHoraRespuesta);
-                List<RespuestaAlumno> respuestasList = query.ToList(); ;
+                List<RespuestaAlumno> respuestasList = query.ToList();
                 return respuestasList;
+            }
+        }
+        public static RespuestaAlumno GetRespuesta(int idRespuesta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                return respuesta;
+            }
+        }
+        public static void UpdateRespuesta(int idRespuesta, int resultadoEvaluacion, int idProfesor)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                
+                // Setea 1, 2 o 3 y Profesor que corrigió
+                respuesta.IdResultadoEvaluacion = resultadoEvaluacion; 
+                respuesta.IdProfesorEvaluador = idProfesor;
+
+                db.SaveChanges();
             }
         }
     }
