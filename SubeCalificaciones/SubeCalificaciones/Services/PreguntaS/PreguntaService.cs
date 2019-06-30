@@ -53,11 +53,20 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
-        public static List<RespuestaAlumno> GetRespuestas(int idPregunta)
+        public static List<RespuestaAlumno> GetRespuestas(int idPregunta, int filtro)
         {
             using (db = new TP_20191CEntities())
             {
-                List<RespuestaAlumno> respuestasList = (from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r).ToList();
+                var query = from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r;
+                if (filtro > 0) {
+                    query = query.Where(r => r.ResultadoEvaluacion.IdResultadoEvaluacion == filtro);
+                }
+                else if (filtro == 0)
+                {
+                    query = query.Where(r => r.ResultadoEvaluacion == null);
+                }
+                query = query.OrderBy(r => r.FechaHoraRespuesta);
+                List<RespuestaAlumno> respuestasList = query.ToList(); ;
                 return respuestasList;
             }
         }

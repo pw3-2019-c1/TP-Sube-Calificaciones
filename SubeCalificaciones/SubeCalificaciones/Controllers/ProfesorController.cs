@@ -50,7 +50,7 @@ namespace SubeCalificaciones.Controllers
                 return View(pregunta);
             }
         }
-        public ActionResult EvaluarRespuestas(int idPregunta)
+        public ActionResult EvaluarRespuestas(int idPregunta, int filtro)
         {
             if (!CheckSession())
             {
@@ -60,7 +60,7 @@ namespace SubeCalificaciones.Controllers
             {
                 Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
                 ViewBag.pregunta = pregunta;
-                List<RespuestaAlumno> respuestas = PreguntaService.GetRespuestas(idPregunta);
+                List<RespuestaAlumno> respuestas = PreguntaService.GetRespuestas(idPregunta, filtro);
                 return View(respuestas);
             }
         }

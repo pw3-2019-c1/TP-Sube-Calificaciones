@@ -9,16 +9,33 @@
 <h2>@ViewBag.Pregunta.Nro. @ViewBag.Pregunta.Pregunta1</h2>
 <h4>(@ViewBag.Pregunta.FechaDisponibleDesde.ToString("MM/dd/yyyy") - @ViewBag.Pregunta.FechaDisponibleHasta.ToString("MM/dd/yyyy"))</h4>
 <br />
-<h4>Preguntas:</h4>
+
+<ul class="nav navbar-nav">
+    <li>@Html.ActionLink("Todas", "EvaluarRespuestas", "Profesor", new { idPregunta = ViewBag.Pregunta.IdPregunta, filtro = -1 }, null)</li>
+    <li>@Html.ActionLink("Sin Corregir", "EvaluarRespuestas", "Profesor", new { idPregunta = ViewBag.Pregunta.IdPregunta, filtro = 0 }, null)</li>
+    <li>@Html.ActionLink("Correctas", "EvaluarRespuestas", "Profesor", new { idPregunta = ViewBag.Pregunta.IdPregunta, filtro = 1 }, null)</li>
+    <li>@Html.ActionLink("Regular", "EvaluarRespuestas", "Profesor", new { idPregunta = ViewBag.Pregunta.IdPregunta, filtro = 2 }, null)</li>
+    <li>@Html.ActionLink("Mal", "EvaluarRespuestas", "Profesor", new { idPregunta = ViewBag.Pregunta.IdPregunta, filtro = 3 }, null)</li>
+</ul>
+
 <table class="table table-striped table-hover">
     <tbody>
         @foreach (var respuesta in Model)
         {
-            <tr>
-                <td><p>@respuesta.FechaHoraRespuesta</p>@respuesta.Alumno.Nombre @respuesta.Alumno.Apellido</td>
-                <td>@respuesta.Respuesta</td>
+        <tr>
+            <td>
+                <p>@respuesta.FechaHoraRespuesta</p>@respuesta.Alumno.Nombre @respuesta.Alumno.Apellido
+            </td>
+            <td>@respuesta.Respuesta</td>
+            @if (respuesta.ResultadoEvaluacion != null) 
+            {
                 <td>@respuesta.ResultadoEvaluacion.Resultado</td>
-            </tr>
+            }
+            else
+            {
+            <td>Sin corregir</td>
+            }
+        </tr>
         }
     </tbody>
 </table>
