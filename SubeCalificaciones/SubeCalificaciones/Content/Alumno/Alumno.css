@@ -23,3 +23,15 @@
         float: none;
     }
 }
+
+#home-panel-ques {
+    display: flex;
+    min-height: 85px;
+    justify-content: center;
+    flex-direction: column;
+    font-style: italic;
+}
+.glyphicon.glyphicon-star {
+    left: 5px;
+    color: #e7b21d;
+}

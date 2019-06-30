@@ -146,6 +146,7 @@
     <Compile Include="Models\Profesor.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\QuestRankin.cs" />
     <Compile Include="Models\RespuestaAlumno.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>

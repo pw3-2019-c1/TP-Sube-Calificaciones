@@ -14,7 +14,6 @@ namespace SubeCalificaciones.Controllers
         {
             return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
         }
-        // GET: Alumno
         public ActionResult Index()
         {
             if (!CheckSession())
@@ -24,13 +23,34 @@ namespace SubeCalificaciones.Controllers
             else
             {
                 int alID = Convert.ToInt32(Session["UserSession"]);
-                Data.SetAlumnoId(alID);
-                Alumno al = Data.GetAlumno();
-                ViewBag.alNombre = al.Nombre;
-                ViewBag.alApellido = al.Apellido;
+                if (CheckSession())
+                {
+                    Data.SetAlumnoId(alID);
+                    Alumno al = Data.GetAlumno();
+                    ViewBag.alNombre = al.Nombre;
+                    ViewBag.alApellido = al.Apellido;
+                    //Top 5 Rank
+                    ViewBag.AlRankinList = Data.GetAlumnosRankin();
+                    //Old Rank
+                    var LastQuest = Data.RankinOld();
+                    //Old Rank questions 1
+                    ViewBag.FirstLQTitle = LastQuest[0].TipoPregunta;
+                    ViewBag.FirstLQNr = LastQuest[0].NroPregunta;
+                    var firstLastQuest = LastQuest[0].NroPregunta;
+                    ViewBag.FirstLQAlumnos = Data.RankinOldAlumnos(firstLastQuest);
+                    //Old Rank questions 2
+                    ViewBag.SecondLQTitle = LastQuest[1].TipoPregunta;
+                    ViewBag.SecondLQNr = LastQuest[1].NroPregunta;
+                    var secondLastQuest = LastQuest[1].NroPregunta;
+                    ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(secondLastQuest);
+                    //Questions not responded by Alumno
+                    ViewBag.NoRespList = Data.NotResponseQuest(alID);
 
-                List<Alumno> alRankinList = Data.GetAlumnosRankin();
-                return View(alRankinList);
+                    return View();
+                } else
+                {
+                    return RedirectToAction("Ingresar", "Home");
+                }
             }
         }
         public ActionResult AcercaDe()
