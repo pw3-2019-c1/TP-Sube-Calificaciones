@@ -24,21 +24,11 @@
 {
 <div class="panel panel-default">
     <div class="panel-heading">
-        Clase @pregunta.Clase.IdClase - @pregunta.Clase.Nombre
+        @pregunta.Clase.Nombre - @pregunta.Tema.Nombre Hasta @pregunta.FechaDisponibleHasta
     </div>
     <div class="panel-body">
         @pregunta.Nro. @pregunta.Pregunta1 <a href="/Alumno/VerRespuesta" class="btn btn-xs btn-link">Ver</a>
     </div>
     <div class="panel-footer">Panel footer</div>
 </div>
-    <tr>
-        <td></td>
-        <td>@pregunta.Clase.Nombre</td>
-        <td>@pregunta.Tema.Nombre</td>
-        <td>@Html.ActionLink(pregunta.Pregunta1, "ModificarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
-        <td>@pregunta.FechaDisponibleDesde</td>
-        <td>@pregunta.FechaDisponibleHasta</td>
-        <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
-        <td class="text-center">@Html.ActionLink("X", "EliminarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
-    </tr>
 }
