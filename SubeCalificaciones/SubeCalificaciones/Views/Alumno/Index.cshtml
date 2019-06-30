@@ -1,35 +1,147 @@
-﻿@model IList<SubeCalificaciones.Models.Alumno>
-@{
+﻿@{
     ViewBag.Title = "Alumno Home";
     Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
 }
+<div class="container">
+    <h2>¡Sube tus calificaciones!</h2>
+    <p>Contestando preguntas referidas a lo visto en clase, suma puntos cruciales para subir tus calificaciones al final de la cursada.</p>
+    <br />
 
-<h2>¡Sube tus calificaciones!</h2>
-<p>Contestando preguntas referidas a lo visto en clase, suma puntos cruciales para subir tus calificaciones al final de la cursada.</p>
-<br />
-<h4>Tabla de posiciones:</h4>
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Pos</th>
-            <th>Alumno</th>
-            <th>Puntos</th>
-            <th>Respuestas Bien</th>
-            <th>Mejor Respuesta</th>
-        </tr>  
-    </thead>
-    <tbody>
-            @{int i = 1;}
-            @foreach (var alumno in Model)
-            {
-                <tr>
-                    <td>@i</td>
-                    <td>@alumno.Nombre @alumno.Apellido</td>
-                    <td>@alumno.PuntosTotales</td>
-                    <td>@alumno.CantidadRespuestasCorrectas</td>
-                    <td>@alumno.CantidadMejorRespuesta</td>
-                </tr>
-                i++;
-            }
-    </tbody>
-</table>
+    <div class="row">
+        <div class="col-lg-12 col-md-6 col-sm-12">
+            <h4>Tabla de posiciones</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Pos</th>
+                            <th>Alumno</th>
+                            <th class="text-center">Puntos</th>
+                            <th class="text-center">Respuestas Bien</th>
+                            <th class="text-center">Mejor Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 1;}
+                        @foreach (var AlRankinList in ViewBag.AlRankinList)
+                        {
+                            <tr>
+                                <td class="text-center">@i</td>
+                                <td>
+                                    @AlRankinList.Nombre @AlRankinList.Apellido
+                                    @{ if (AlRankinList.Nombre == ViewBag.alNombre
+                                                && AlRankinList.Apellido == ViewBag.alApellido)
+                                        {
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                        }
+                                    }
+                                </td>
+                                <td class="text-center">@AlRankinList.PuntosTotales</td>
+                                <td class="text-center">@AlRankinList.CantidadRespuestasCorrectas</td>
+                                <td class="text-center">@AlRankinList.CantidadMejorRespuesta</td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-6 col-sm-12">
+            <h4>Ultimas preguntas</h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="panel panel-primary">
+                        <div id="home-panel-ques" class="panel-heading" style="display:flex;min-height:85px;justify-content:center;flex-direction:column;font-style:italic;">
+                            <h3 class="panel-title">@ViewBag.FirstLQNr - @ViewBag.FirstLQTitle</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Pos</th>
+                                        <th>Alumno</th>
+                                        <th class="text-center">Puntos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int x = 1;}
+                                    @foreach (var FirstLQAlumnos in ViewBag.FirstLQAlumnos)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@x</td>
+                                            <td>
+                                                @FirstLQAlumnos.AlumnoNombre @FirstLQAlumnos.AlumnoApe
+                                                @{ if (FirstLQAlumnos.AlumnoNombre == ViewBag.alNombre
+                                                            && FirstLQAlumnos.AlumnoApe == ViewBag.alApellido)
+                                                    {
+                                                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td class="text-center">@FirstLQAlumnos.PtosRsta</td>
+                                        </tr>
+                                        x++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-info">
+                        <div id="home-panel-ques" class="panel-heading" style="display:flex;min-height:85px;justify-content:center;flex-direction:column;font-style:italic;">
+                            <h3 class="panel-title">@ViewBag.SecondLQNr - @ViewBag.SecondLQTitle</h3>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Pos</th>
+                                        <th>Alumno</th>
+                                        <th class="text-center">Puntos</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int y = 1;}
+                                    @foreach (var SecondLQAlumnos in ViewBag.SecondLQAlumnos)
+                                    {
+                                        <tr>
+                                            <td class="text-center">@y</td>
+                                            <td>
+                                                @SecondLQAlumnos.AlumnoNombre @SecondLQAlumnos.AlumnoApe
+                                                @{ if (SecondLQAlumnos.AlumnoNombre == ViewBag.alNombre
+                                                           && SecondLQAlumnos.AlumnoApe == ViewBag.alApellido)
+                                                    {
+                                                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                                    }
+                                                }
+                                            </td>
+                                            <td class="text-center">@SecondLQAlumnos.PtosRsta</td>
+                                        </tr>
+                                        y++;
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.NoRespList != null)
+        {
+            <div class="col-sm-6">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4>Pregunta sin responder</h4>
+                    </div>
+                    <div class="list-group">
+                        @foreach (var notResp in ViewBag.NoRespList)
+                        {
+                          <a href="/Alumno/Preguntas/@notResp.QuestionId" class="list-group-item">@notResp.QuestionId - @notResp.Question</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
