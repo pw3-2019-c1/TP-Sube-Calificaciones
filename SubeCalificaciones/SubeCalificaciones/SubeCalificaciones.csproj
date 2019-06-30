@@ -173,6 +173,8 @@
     </Compile>
     <Compile Include="Models\UsuarioAnonimo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PreguntaS\PreguntaService.cs" />
+    <Compile Include="Services\ProfesorS\Data.cs" />
     <Compile Include="Services\AlumnoS\Data.cs" />
     <Compile Include="Services\HomeS\CheckUserToLog.cs" />
   </ItemGroup>
@@ -240,6 +242,7 @@
     <Content Include="Views\Alumno\Index.cshtml" />
     <Content Include="Views\Alumno\AcercaDe.cshtml" />
     <Content Include="Views\Profesor\AcercaDe.cshtml" />
+    <Content Include="Views\Profesor\AdminPreguntas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
