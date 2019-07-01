@@ -177,6 +177,8 @@
     <Compile Include="Services\ProfesorS\Data.cs" />
     <Compile Include="Services\AlumnoS\Data.cs" />
     <Compile Include="Services\HomeS\CheckUserToLog.cs" />
+    <Compile Include="Services\ClaseService.cs" />
+    <Compile Include="Services\TemaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Alumno\Alumno.css" />
