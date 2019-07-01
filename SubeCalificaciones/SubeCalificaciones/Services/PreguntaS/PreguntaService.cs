@@ -112,7 +112,10 @@ namespace SubeCalificaciones.Services.PreguntaS
         }
         public static Pregunta GetLastPregunta()
         {
-            return db.Pregunta.Find(db.Preguntas.Max(p => p.IdPregunta));
+            using (db = new TP_20191CEntities())
+            {
+                return db.Pregunta.Find(db.Preguntas.Max(p => p.IdPregunta));
+            }
         }
         public static void CrearPregunta(Pregunta p)
         {
