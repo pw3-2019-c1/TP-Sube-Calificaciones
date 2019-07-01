@@ -112,7 +112,7 @@ namespace SubeCalificaciones.Services.PreguntaS
         }
         public static Pregunta GetLastPregunta()
         {
-            return db.Pregunta.Find(db.Pregunta.Max(p => p.IdPregunta));
+            return db.Pregunta.Find(db.Preguntas.Max(p => p.IdPregunta));
         }
         public static void CrearPregunta(Pregunta p)
         {
