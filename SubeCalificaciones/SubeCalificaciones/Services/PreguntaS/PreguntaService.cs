@@ -110,6 +110,10 @@ namespace SubeCalificaciones.Services.PreguntaS
             //return Convert.ToDateTime(p.FechaDisponibleDesde).Date.CompareTo(p.FechaDisponibleHasta);
             return DateTime.Compare(Convert.ToDateTime(p.FechaDisponibleDesde).Date, Convert.ToDateTime(p.FechaDisponibleHasta).Date);
         }
+        public static Pregunta GetLastPregunta()
+        {
+            return db.Pregunta.Find(db.Pregunta.Max(p => p.IdPregunta));
+        }
         public static void CrearPregunta(Pregunta p)
         {
             using (db = new TP_20191CEntities())
