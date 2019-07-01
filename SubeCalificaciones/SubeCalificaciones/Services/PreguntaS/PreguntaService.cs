@@ -18,11 +18,45 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-        public static List<Pregunta> GetPreguntasAlumno()
+        public static List<PreguntaAlumno> GetPreguntasAlumno(int filtro, int idAlumno)
         {
             using (db = new TP_20191CEntities())
             {
-                List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema") orderby p.Nro descending select p).ToList();
+                var query = from p in db.Preguntas.Include("Clase").Include("Tema")
+                            join ra in db.RespuestaAlumnoes
+                            on p.IdPregunta equals ra.IdPregunta
+                            where ra.IdAlumno == idAlumno
+                            orderby p.Nro descending
+                            select new PreguntaAlumno
+                            {
+                                Nro = p.Nro,
+                                Pregunta1 = p.Pregunta1,
+                                FechaDisponibleHasta = p.FechaDisponibleHasta,
+                                IdResultadoEvaluacion = ra.IdResultadoEvaluacion,
+                                Clase = p.Clase,
+                                Tema = p.Tema
+                            };
+
+                if (filtro >= 0)
+                {
+                    query = from p in db.Preguntas.Include("Clase").Include("Tema")
+                            join ra in db.RespuestaAlumnoes
+                            on p.IdPregunta equals ra.IdPregunta
+                            where ra.IdAlumno == idAlumno
+                            where ra.IdResultadoEvaluacion == filtro
+                            orderby p.Nro descending
+                            select new PreguntaAlumno
+                            {
+                                Nro = p.Nro,
+                                Pregunta1 = p.Pregunta1,
+                                FechaDisponibleHasta = p.FechaDisponibleHasta,
+                                IdResultadoEvaluacion = ra.IdResultadoEvaluacion,
+                                Clase = p.Clase,
+                                Tema = p.Tema
+                            };
+                }
+                
+                List<PreguntaAlumno> preguntasList = query.ToList();
                 return preguntasList;
             }
         }
@@ -37,6 +71,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 return pregunta;
             }
         }
+
         public static void AddPregunta(Pregunta preguntaNueva)
         {
             using (db = new TP_20191CEntities())
@@ -45,6 +80,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
+
         public static void DeletePregunta(int idPregunta)
         {
             using (db = new TP_20191CEntities())
@@ -64,12 +100,99 @@ namespace SubeCalificaciones.Services.PreguntaS
                 db.SaveChanges();
             }
         }
-        public static List<RespuestaAlumno> GetRespuestas(int idPregunta)
+
+        public static List<RespuestaAlumno> GetRespuestas(int idPregunta, int filtro)
         {
             using (db = new TP_20191CEntities())
             {
-                List<RespuestaAlumno> respuestasList = (from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r).ToList();
+                var query = from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r;
+                if (filtro > 0) {
+                    query = query.Where(r => r.ResultadoEvaluacion.IdResultadoEvaluacion == filtro);
+                }
+                else if (filtro == 0)
+                {
+                    query = query.Where(r => r.ResultadoEvaluacion == null);
+                }
+                query = query.OrderBy(r => r.FechaHoraRespuesta);
+                List<RespuestaAlumno> respuestasList = query.ToList();
                 return respuestasList;
+            }
+        }
+
+        public static Boolean PuedeElegirMejorRespuesta(int idPregunta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                Boolean existeRespuestaSinCorregir = (from r in db.RespuestaAlumnoes where r.IdPregunta == idPregunta && r.IdResultadoEvaluacion == null select r).Any();
+                Boolean existeMejorRespuesta = (from r in db.RespuestaAlumnoes where r.IdPregunta == idPregunta && r.MejorRespuesta == true select r).Any();
+                return (!existeRespuestaSinCorregir && !existeMejorRespuesta);
+            }
+        }
+
+        public static void ElegirMejorRespuesta(int idRespuesta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                respuesta.MejorRespuesta = true;
+                db.SaveChanges();
+            }
+        }
+
+        public static RespuestaAlumno GetRespuesta(int idRespuesta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                return respuesta;
+            }
+        }
+        public static void CorregirRespuesta(int idRespuesta, int resultadoEvaluacion, int idProfesor)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+
+                int cantidadRespuestasCorrectas = (from r in db.RespuestaAlumnoes where r.IdPregunta == respuesta.IdPregunta && r.IdResultadoEvaluacion == 1 select r).Count();
+                
+                // Setea 1, 2 o 3 en evaluación, profesor que corrigió, cantRespuestasCorrectas y FechaHoraEvaluacion
+                respuesta.IdResultadoEvaluacion = resultadoEvaluacion; 
+                respuesta.IdProfesorEvaluador = idProfesor;
+                respuesta.RespuestasCorrectasHastaElMomento = cantidadRespuestasCorrectas;
+                respuesta.FechaHoraEvaluacion = DateTime.Now;
+
+                db.SaveChanges();
+            }
+        }
+		public static int ValidarExistencia(Pregunta p)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                var PreguntaExistente = (from Pregunta in db.Preguntas
+                                         where Pregunta.Nro == p.Nro && Pregunta.IdClase == p.IdClase
+                                         select Pregunta).Count();
+
+                return PreguntaExistente;
+            }
+        }
+        public static int ValidarFechaHasta(Pregunta p)
+        {
+            //return Convert.ToDateTime(p.FechaDisponibleDesde).Date.CompareTo(p.FechaDisponibleHasta);
+            return DateTime.Compare(Convert.ToDateTime(p.FechaDisponibleDesde).Date, Convert.ToDateTime(p.FechaDisponibleHasta).Date);
+        }
+        public static Pregunta GetLastPregunta()
+        {
+            using (db = new TP_20191CEntities())
+            {
+                return db.Preguntas.Find(db.Preguntas.Max(p => p.IdPregunta));
+            }
+        }
+        public static void CrearPregunta(Pregunta p)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                db.Preguntas.Add(p);
+                db.SaveChanges();
             }
         }
     }

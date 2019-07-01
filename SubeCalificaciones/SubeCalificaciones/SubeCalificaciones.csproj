@@ -143,7 +143,7 @@
     <Compile Include="Models\Pregunta.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PreguntaViewmodel.cs" />
+    <Compile Include="Models\PreguntaAlumno.cs" />
     <Compile Include="Models\Profesor.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
@@ -183,6 +183,8 @@
     <Compile Include="Services\ProfesorS\Data.cs" />
     <Compile Include="Services\AlumnoS\Data.cs" />
     <Compile Include="Services\HomeS\CheckUserToLog.cs" />
+    <Compile Include="Services\ClaseService.cs" />
+    <Compile Include="Services\TemaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Alumno\Alumno.css" />
@@ -253,8 +255,8 @@
     <Content Include="Views\Alumno\AcercaDe.cshtml" />
     <Content Include="Views\Profesor\AcercaDe.cshtml" />
     <Content Include="Views\Profesor\AdminPreguntas.cshtml" />
-    <Content Include="Views\Profesor\.cshtml" />
     <Content Include="Views\Profesor\EvaluarRespuestas.cshtml" />
+    <Content Include="Views\Profesor\CrearPregunta.cshtml" />
     <Content Include="Views\Alumno\ResponderPregunta.cshtml" />
     <Content Include="Views\Alumno\Preguntas.cshtml" />
     <Content Include="Views\Alumno\VerRespuesta.cshtml" />

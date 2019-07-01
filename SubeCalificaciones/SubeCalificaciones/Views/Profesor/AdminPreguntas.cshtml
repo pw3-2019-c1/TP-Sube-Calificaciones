@@ -32,7 +32,7 @@
             <td>@Html.ActionLink(pregunta.Pregunta1, "ModificarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
             <td>@pregunta.FechaDisponibleDesde</td>
             <td>@pregunta.FechaDisponibleHasta</td>
-            <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor",  new { idPregunta=pregunta.IdPregunta }, null)</td>
+            <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor",  new { idPregunta=pregunta.IdPregunta, filtro = -1 }, null)</td>
             <td class="text-center">@Html.ActionLink("X", "EliminarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
         </tr>
         }
