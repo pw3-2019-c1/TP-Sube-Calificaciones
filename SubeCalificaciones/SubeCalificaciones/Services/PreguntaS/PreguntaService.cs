@@ -73,6 +73,27 @@ namespace SubeCalificaciones.Services.PreguntaS
                 return respuestasList;
             }
         }
+
+        public static Boolean PuedeElegirMejorRespuesta(int idPregunta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                Boolean existeRespuestaSinCorregir = (from r in db.RespuestaAlumnoes where r.IdPregunta == idPregunta && r.IdResultadoEvaluacion == null select r).Any();
+                Boolean existeMejorRespuesta = (from r in db.RespuestaAlumnoes where r.IdPregunta == idPregunta && r.MejorRespuesta == true select r).Any();
+                return (!existeRespuestaSinCorregir && !existeMejorRespuesta);
+            }
+        }
+
+        public static void ElegirMejorRespuesta(int idRespuesta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                respuesta.MejorRespuesta = true;
+                db.SaveChanges();
+            }
+        }
+
         public static RespuestaAlumno GetRespuesta(int idRespuesta)
         {
             using (db = new TP_20191CEntities())

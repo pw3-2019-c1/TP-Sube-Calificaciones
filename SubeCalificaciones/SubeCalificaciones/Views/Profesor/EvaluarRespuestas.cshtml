@@ -50,6 +50,18 @@
                     </td>
                 }
             }
+            @if (ViewBag.PuedeElegirMejorRespuesta == true && respuesta.ResultadoEvaluacion.IdResultadoEvaluacion == 1)
+            {
+                <td>@Html.ActionLink("Elegir Mejor Respuesta", "ElegirMejorRespuesta", "Profesor", new { idRespuesta = respuesta.IdRespuestaAlumno }, null)</td>
+            }
+            else if (respuesta.MejorRespuesta)
+            {
+                <td>MEJOR RESPUESTA</td>
+            }
+            else
+            {
+                <td></td>
+            }
         </tr>
         }
     </tbody>

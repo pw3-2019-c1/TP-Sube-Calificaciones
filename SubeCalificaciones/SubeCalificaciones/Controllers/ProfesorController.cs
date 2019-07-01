@@ -77,11 +77,13 @@ namespace SubeCalificaciones.Controllers
             else
             {
                 Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
-                ViewBag.pregunta = pregunta;
                 List<RespuestaAlumno> respuestas = PreguntaService.GetRespuestas(idPregunta, filtro);
+                ViewBag.pregunta = pregunta;
+                ViewBag.PuedeElegirMejorRespuesta = PreguntaService.PuedeElegirMejorRespuesta(idPregunta);
                 return View(respuestas);
             }
         }
+
         public ActionResult CorregirRespuesta(int idRespuesta, int resultadoEvaluacion)
         {
             if (!CheckSession())
@@ -92,6 +94,20 @@ namespace SubeCalificaciones.Controllers
             {
                 int idProfesor = Convert.ToInt32(Session["UserSession"]);
                 PreguntaService.UpdateRespuesta(idRespuesta, resultadoEvaluacion, idProfesor);
+                RespuestaAlumno resp = PreguntaService.GetRespuesta(idRespuesta);
+                return RedirectToAction("EvaluarRespuestas", new { idPregunta = resp.IdPregunta, filtro = -1 });
+            }
+        }
+
+        public ActionResult ElegirMejorRespuesta(int idRespuesta)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                PreguntaService.ElegirMejorRespuesta(idRespuesta);
                 RespuestaAlumno resp = PreguntaService.GetRespuesta(idRespuesta);
                 return RedirectToAction("EvaluarRespuestas", new { idPregunta = resp.IdPregunta, filtro = -1 });
             }
