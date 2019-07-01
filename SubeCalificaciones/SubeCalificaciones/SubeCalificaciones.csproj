@@ -143,6 +143,7 @@
     <Compile Include="Models\Pregunta.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PreguntaViewmodel.cs" />
     <Compile Include="Models\Profesor.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>

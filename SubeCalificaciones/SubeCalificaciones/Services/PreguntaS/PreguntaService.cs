@@ -18,31 +18,16 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-        public static List<Pregunta> GetPreguntasSinCorregir()
+        public static List<Pregunta> GetPreguntasAlumno()
         {
             using (db = new TP_20191CEntities())
             {
-                List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema").Include("RespuestaAlumnoes")
-                                                join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
-                                                on p.IdPregunta equals ra.IdPregunta into lj from ra in lj.DefaultIfEmpty()
-                                                orderby p.Nro descending
-                                                select p).ToList();
+                List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema") orderby p.Nro descending select p).ToList();
                 return preguntasList;
             }
         }
 
-        public static List<Pregunta> GetPreguntasCorregidas(int filtro)
-        {
-            using (db = new TP_20191CEntities())
-            {
-                List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema").Include("RespuestaAlumnoes")
-                                                join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
-                                                on p.IdPregunta equals ra.IdPregunta
-                                                where ra.IdResultadoEvaluacion == filtro
-                                                orderby p.Nro descending select p).ToList();
-                return preguntasList;
-            }
-        }
+
 
         public static Pregunta GetPregunta(int idPregunta)
         {

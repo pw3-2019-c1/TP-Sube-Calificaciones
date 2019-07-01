@@ -70,15 +70,12 @@ namespace SubeCalificaciones.Controllers
             //}
             //else
             //{
+            int idAlumno = Convert.ToInt32(Session["UserSession"]);
             List<Pregunta> preguntas;
-            if (FiltrosPreguntas[filtro] == 0)
+            if(FiltrosPreguntas[filtro] >= 0)
             {
-                preguntas = PreguntaService.GetPreguntasSinCorregir();
-            }
-            else if(FiltrosPreguntas[filtro] > 0)
-            {
-                preguntas = PreguntaService.GetPreguntasCorregidas(FiltrosPreguntas[filtro]);
-                
+                //preguntas = PreguntaService.GetPreguntasAlumno(FiltrosPreguntas[filtro], idAlumno);
+                preguntas = PreguntaService.GetPreguntas();
             }
             else
             {
