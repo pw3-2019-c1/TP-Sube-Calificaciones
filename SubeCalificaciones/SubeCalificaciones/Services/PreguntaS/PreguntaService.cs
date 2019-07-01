@@ -114,14 +114,14 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                return db.Pregunta.Find(db.Preguntas.Max(p => p.IdPregunta));
+                return db.Preguntas.Find(db.Preguntas.Max(p => p.IdPregunta));
             }
         }
         public static void CrearPregunta(Pregunta p)
         {
             using (db = new TP_20191CEntities())
             {
-                db.Pregunta.Add(p);
+                db.Preguntas.Add(p);
                 db.SaveChanges();
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SubeCalificaciones.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace SubeCalificaciones.Services
 
         public static List<Tema> ListarTema()
         {
-            List<Tema> temas = (from c in db.Tema select c).ToList();
+            List<Tema> temas = (from c in db.Temas select c).ToList();
             return temas;
         }
     }
