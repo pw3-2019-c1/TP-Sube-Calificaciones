@@ -7,6 +7,12 @@ namespace SubeCalificaciones.Models
 {
     public class PreguntaAlumno
     {
+        public PreguntaAlumno()
+        {
+            this.CurrentDate = DateTime.Now;
+        }
+
+        public System.DateTime CurrentDate { get; private set; }
         public int IdPregunta { get; set; }
         public int Nro { get; set; }
         public int IdClase { get; set; }
@@ -25,5 +31,8 @@ namespace SubeCalificaciones.Models
         public virtual ResultadoEvaluacion ResultadoEvaluacion { get; set; }
         public int IdAlumno { get; set; }
         public virtual Alumno Alumno { get; set; }
+        public int Orden { get; set; }
+        public Nullable<long> Puntos { get; set; }
+        public bool MejorRespuesta { get; set; }
     }
 }
