@@ -93,8 +93,9 @@ namespace SubeCalificaciones.Controllers
             else
             {
                 int idProfesor = Convert.ToInt32(Session["UserSession"]);
-                PreguntaService.UpdateRespuesta(idRespuesta, resultadoEvaluacion, idProfesor);
+                PreguntaService.CorregirRespuesta(idRespuesta, resultadoEvaluacion, idProfesor);
                 RespuestaAlumno resp = PreguntaService.GetRespuesta(idRespuesta);
+
                 return RedirectToAction("EvaluarRespuestas", new { idPregunta = resp.IdPregunta, filtro = -1 });
             }
         }

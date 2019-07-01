@@ -102,15 +102,19 @@ namespace SubeCalificaciones.Services.PreguntaS
                 return respuesta;
             }
         }
-        public static void UpdateRespuesta(int idRespuesta, int resultadoEvaluacion, int idProfesor)
+        public static void CorregirRespuesta(int idRespuesta, int resultadoEvaluacion, int idProfesor)
         {
             using (db = new TP_20191CEntities())
             {
                 RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+
+                int cantidadRespuestasCorrectas = (from r in db.RespuestaAlumnoes where r.IdPregunta == respuesta.IdPregunta && r.IdResultadoEvaluacion == 1 select r).Count();
                 
-                // Setea 1, 2 o 3 y Profesor que corrigió
+                // Setea 1, 2 o 3 en evaluación, profesor que corrigió, cantRespuestasCorrectas y FechaHoraEvaluacion
                 respuesta.IdResultadoEvaluacion = resultadoEvaluacion; 
                 respuesta.IdProfesorEvaluador = idProfesor;
+                respuesta.RespuestasCorrectasHastaElMomento = cantidadRespuestasCorrectas;
+                respuesta.FechaHoraEvaluacion = DateTime.Now;
 
                 db.SaveChanges();
             }
