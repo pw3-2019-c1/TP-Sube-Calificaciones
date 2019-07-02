@@ -13,7 +13,7 @@
     <form role="form" method="post" action="CrearPregunta" class="contenedor_formulario">
         @Html.ValidationSummary(true, " ", new { @class = "text-danger" })
         
-        @Html.HiddenFor(m => m.IdProfesorCreacion, new { Value = @Session["ProfesorId"] })
+        @Html.HiddenFor(m => m.IdProfesorCreacion, new { Value = @Session["UserSession"] })
         <!--Nro presunta-->
         <div class="form-group">
             <label>Nro(*):</label>
@@ -61,8 +61,8 @@
         </div>
         <div class="row text-center">
             <input type="submit" class="btn btn-lg btn-primary" value="Crear">
-            <input type="submit" class="btn btn-secondary btn-lg" value="Cancelar">
-
+            <input type="reset" class="btn btn-secondary btn-lg" value="Cancelar">
+           
         </div>
     </form>
 </div>

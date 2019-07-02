@@ -4,13 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
-using SubeCalificaciones.Services;
+using System.Security.Cryptography;
+using System.Text;
+using SubeCalificaciones.Services.Home;
 
 namespace SubeCalificaciones.Controllers
 {
     public class HomeController : Controller
     {
-
+        //public static string GetSHA1(string str)
+        //{
+        //    SHA1 sha1 = SHA1.Create();
+        //    ASCIIEncoding encoding = new ASCIIEncoding();
+        //    StringBuilder sb = new StringBuilder();
+        //    byte[] stream = sha1.ComputeHash(encoding.GetBytes(str));
+        //    for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+        //    return sb.ToString();
+        //}
         public ActionResult Ingresar()
         {
             return View();
@@ -23,32 +33,35 @@ namespace SubeCalificaciones.Controllers
             {
                 if (ua.IsProfesor == true)
                 {
-                    var checkedData = UsuarioService.CheckProfesor(ua);
-                    if (checkedData != null)
+                    Profesor profesorDetails = CheckUserToLog.GetProfesor(ua);
+                    if (profesorDetails == null)
                     {
-                        Session["ProfesorName"] = (checkedData.Nombre).ToString();
-                        Session["ProfesorSurn"] = (checkedData.Apellido).ToString();
-                        Session["ProfesorId"] = (checkedData.IdProfesor).ToString();
-                        return Redirect("/Profesor");
+                        ua.LoggError = "Datos invalidos, intente nuevamente.";
+                        return View(ua);
                     }
                     else
                     {
-                        ua.LoggError = "Nombre o contraseña invalidos.";
-                        return View(ua);
+                        //string UserToHash = (profesorDetails.IdProfesor).ToString();
+                        //string UserHashed = GetSHA1(UserToHash);
+                        //Session["UserSession"] = UserHashed;
+                        Session["UserSession"] = (profesorDetails.IdProfesor).ToString();
+                        return Redirect("/Profesor");
                     }
                 } else
                 {
-                    var checkedData = UsuarioService.CheckAlumno(ua);
-                    if (checkedData != null)
+                    Alumno alumnoDetails = CheckUserToLog.GetAlumno(ua);
+                    if (alumnoDetails == null)
                     {
-                        Session["AlumnoName"] = (checkedData.Nombre).ToString();
-                        Session["AlumnoSurn"] = (checkedData.Apellido).ToString();
-                        return Redirect("/Alumno");
+                        ua.LoggError = "Datos invalidos, intente nuevamente.";
+                        return View(ua);
                     }
                     else
                     {
-                        ua.LoggError = "Nombre o contraseña invalidos.";
-                        return View(ua);
+                        //string UserToHash = (alumnoDetails.IdAlumno).ToString();
+                        //string UserHashed = GetSHA1(UserToHash);
+                        //Session["UserSession"] = UserHashed;
+                        Session["UserSession"] = (alumnoDetails.IdAlumno).ToString();
+                        return Redirect("/Alumno");
                     }
                 }
             }

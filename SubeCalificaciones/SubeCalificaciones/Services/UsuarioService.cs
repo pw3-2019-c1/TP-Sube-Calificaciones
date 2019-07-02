@@ -12,11 +12,12 @@ namespace SubeCalificaciones.Services
 
         public static Profesor CheckProfesor(UsuarioAnonimo ua)
         {
-            
+            using (db)
+            {
                 var userDetails = db.Profesor.Where(u => u.Email == ua.InputEmail && u.Password == ua.InputPassword).FirstOrDefault();
                 //return (userDetails != null) ? true : false;
                 return userDetails;
-            
+            }
         }
 
         public static Alumno CheckAlumno(UsuarioAnonimo ua)

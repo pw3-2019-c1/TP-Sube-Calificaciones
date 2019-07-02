@@ -1,10 +1,6 @@
 ﻿@{
     ViewBag.Title = "Profesor Acerca de";
     Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
-    if (Session["ProfesorName"].ToString() == String.Empty)
-    {
-        Response.Redirect("~/Home/Ingresar");
-    }
 }
 <h2>Acerca De</h2>
 

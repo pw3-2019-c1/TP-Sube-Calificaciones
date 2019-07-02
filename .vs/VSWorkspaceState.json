@@ -1,0 +1,20 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\SubeCalificaciones",
+    "\\SubeCalificaciones\\SubeCalificaciones",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Controllers",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Models",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Services",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Services\\AlumnoS",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Services\\HomeS",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Services\\PreguntaS",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Services\\ProfesorS",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Views",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Views\\Alumno",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Views\\Profesor",
+    "\\SubeCalificaciones\\SubeCalificaciones\\Views\\Shared"
+  ],
+  "SelectedNode": "\\SubeCalificaciones\\SubeCalificaciones\\Services\\PreguntaS\\PreguntaService.cs",
+  "PreviewInSolutionExplorer": false
+}

@@ -16,7 +16,7 @@
                 <li>@Html.ActionLink("Acerca de", "AcercaDe", "Alumno")</li>
             </ul>
             <div class="info-container">
-                <span class="menu-user">@Session["AlumnoName"].ToString() <i>(Alumno)</i></span>
+                <span class="menu-user">@ViewBag.alNombre @ViewBag.alApellido <i>(Alumno)</i></span>
                 @Html.ActionLink("Cerrar sesion", "Logout", "Alumno", new { @class = "btn btn-danger menu-button", role = "button" })
             </div>
         </div>

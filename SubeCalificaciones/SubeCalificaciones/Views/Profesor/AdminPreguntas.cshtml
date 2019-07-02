@@ -1,0 +1,41 @@
+﻿@model IList <SubeCalificaciones.Pregunta>
+@{
+    ViewBag.Title = "Profesor Administrar Preguntas";
+    Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+}
+
+<h2>Admin Preguntas</h2>
+
+<p>@Html.ActionLink("Crear Pregunta", "CrearPregunta", "Profesor")</p>
+<br />
+<h4>Preguntas:</h4>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nro</th>
+            <th>Clase</th>
+            <th>Tema</th>                                     
+            <th>Pregunta</th>
+            <th>Fecha Desde</th>
+            <th>Fecha Hasta</th>
+            <th>Evaluar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pregunta in Model)
+        {
+        <tr>
+            <td>@pregunta.Nro</td>
+            <td>@pregunta.Clase.Nombre</td>
+            <td>@pregunta.Tema.Nombre</td>
+            <td>@Html.ActionLink(pregunta.Pregunta1, "ModificarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
+            <td>@pregunta.FechaDisponibleDesde</td>
+            <td>@pregunta.FechaDisponibleHasta</td>
+            <td class="text-center">@Html.ActionLink("🔍", "EvaluarRespuestas", "Profesor",  new { idPregunta=pregunta.IdPregunta, filtro = -1 }, null)</td>
+            <td class="text-center">@Html.ActionLink("X", "EliminarPregunta", "Profesor", new { idPregunta = pregunta.IdPregunta }, null)</td>
+            <td class="text-center">@Html.ActionLink("", "EvaluarRespuestas", "Profesor", new { idPregunta = pregunta.IdPregunta, filtro = -1 }, null)</td>
+        </tr>
+        }
+    </tbody>
+</table>

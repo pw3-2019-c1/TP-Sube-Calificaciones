@@ -171,6 +171,7 @@ C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificac
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CopyComplete
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.dll
 C:\Users\federico.perez\Desktop\FacultadWeb\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.pdb
+C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CoreCompileInputs.cache
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\SubeCalificaciones.dll.config
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\SubeCalificaciones.dll
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\SubeCalificaciones.pdb
@@ -253,8 +254,7 @@ C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificacione
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.resources.dll
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.Deployment.resources.dll
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\bin\es\System.Web.WebPages.Razor.resources.dll
-C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache
-C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CoreCompileInputs.cache
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csproj.CopyComplete
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.dll
 C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.pdb
+C:\Users\rrondosa\Desktop\workspacesNET\TP-Sube-Calificaciones\SubeCalificaciones\SubeCalificaciones\obj\Debug\SubeCalificaciones.csprojAssemblyReference.cache

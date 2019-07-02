@@ -12,13 +12,13 @@
             <ul class="nav navbar-nav">
                 <li><a href="/Profesor">Inicio</a></li>
                 @*<li>@Html.ActionLink("Inicio", "Index", "Profesor")</li>*@
-                <li>@Html.ActionLink("Preguntas", "Preguntas", "Profesor")</li>
+                <li>@Html.ActionLink("Preguntas", "AdminPreguntas", "Profesor")</li>
                 <li>@Html.ActionLink("Crear Pregunta", "CrearPregunta", "Profesor")</li>
                 <li>@Html.ActionLink("Respuesta", "Respuesta", "Profesor")</li>
                 <li>@Html.ActionLink("Acerca de", "AcercaDe", "Profesor")</li>
             </ul>
             <div class="info-container">
-                <span class="menu-user">@Session["ProfesorName"].ToString() <i>(Profesor)</i></span>
+                <span class="menu-user">Nombre <i>(Profesor)</i></span>
                 @Html.ActionLink("Cerrar sesion", "Logout", "Profesor", new { @class = "btn btn-danger menu-button", role = "button" })
             </div>
         </div>
