@@ -28,9 +28,9 @@
     </div>
     <div class="panel-body">
         @pregunta.Nro. @pregunta.Pregunta1
-        @if (@pregunta.IdResultadoEvaluacion == null)
+        @if (pregunta.IdResultadoEvaluacion == null)
         {
-            if (@pregunta.CurrentDate > @pregunta.FechaDisponibleHasta)
+            if (pregunta.CurrentDate > pregunta.FechaDisponibleHasta)
             {
                 <p>Plazo vencido @pregunta.FechaDisponibleDesde - @pregunta.FechaDisponibleHasta</p>
             }
@@ -39,11 +39,11 @@
                 <a href="/Alumno/ResponderPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Responder</a>
             }
         }
-        else if (@pregunta.IdResultadoEvaluacion >= 0)
+        else if (pregunta.IdResultadoEvaluacion >= 0)
         {
             <a href="/Alumno/VerPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a>
             
-            if (@pregunta.IdResultadoEvaluacion == 0)
+            if (pregunta.IdResultadoEvaluacion == 0)
             {
                 <p>Corrección Pendiente</p>
             }

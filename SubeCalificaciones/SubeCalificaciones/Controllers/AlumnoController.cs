@@ -79,15 +79,17 @@ namespace SubeCalificaciones.Controllers
         }
         public ActionResult VerRespuesta(int idPregunta)
         {
-            if (!CheckSession())
-            {
-                return RedirectToAction("Ingresar", "Home");
-            }
-            else
-            {
-                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
-                return View(pregunta);
-            }
+            //if (!CheckSession())
+            //{
+            //    return RedirectToAction("Ingresar", "Home");
+            //}
+            //else
+            //{
+                //int idAlumno = Convert.ToInt32(Session["UserSession"]);
+                int idAlumno = 1;
+                PreguntaAlumno respuesta = PreguntaService.GetRespuesta(idPregunta, idAlumno);
+                return View(respuesta);
+            //}
         }
         public ActionResult ResponderPregunta(int idPregunta)
         {

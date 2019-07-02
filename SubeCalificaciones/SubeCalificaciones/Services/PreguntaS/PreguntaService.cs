@@ -23,6 +23,10 @@ namespace SubeCalificaciones.Services.PreguntaS
             using (db = new TP_20191CEntities())
             {
                 var query = from p in db.Preguntas.Include("Clase").Include("Tema")
+                            join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
+                            //join ra in (from ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion") where ra.IdAlumno == idAlumno select ra)
+                            on p.IdPregunta equals ra.IdPregunta
+                            into agroup from bgroup in (from ra in agroup where ra.IdAlumno == idAlumno select ra).DefaultIfEmpty()
                             orderby p.Nro descending
                             select new PreguntaAlumno
                             {
@@ -31,9 +35,10 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 Pregunta1 = p.Pregunta1,
                                 FechaDisponibleDesde = p.FechaDisponibleDesde,
                                 FechaDisponibleHasta = p.FechaDisponibleHasta,
-                                IdResultadoEvaluacion = null,
                                 Clase = p.Clase,
-                                Tema = p.Tema
+                                Tema = p.Tema,
+                                IdResultadoEvaluacion = bgroup.IdResultadoEvaluacion,
+                                ResultadoEvaluacion = bgroup.ResultadoEvaluacion
                             };
 
                 if (filtro == 0)
@@ -71,13 +76,13 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 Pregunta1 = p.Pregunta1,
                                 FechaDisponibleDesde = p.FechaDisponibleDesde,
                                 FechaDisponibleHasta = p.FechaDisponibleHasta,
+                                Clase = p.Clase,
+                                Tema = p.Tema,
                                 IdResultadoEvaluacion = ra.IdResultadoEvaluacion,
                                 ResultadoEvaluacion = ra.ResultadoEvaluacion,
                                 Orden = ra.Orden,
                                 Puntos = ra.Puntos,
-                                MejorRespuesta = ra.MejorRespuesta,
-                                Clase = p.Clase,
-                                Tema = p.Tema
+                                MejorRespuesta = ra.MejorRespuesta                                
                             };
                 }
                 List<PreguntaAlumno> preguntasList = query.ToList();
@@ -93,6 +98,32 @@ namespace SubeCalificaciones.Services.PreguntaS
             {
                 Pregunta pregunta = (from p in db.Preguntas.Include("Clase").Include("Tema").Include("RespuestaAlumnoes") where p.IdPregunta == idPregunta select p).FirstOrDefault();
                 return pregunta;
+            }
+        }
+
+        public static PreguntaAlumno GetRespuesta(int idPregunta, int idAlumno)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                PreguntaAlumno respuesta = (from ra in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion").Include("Pregunta")
+                                            join p in db.Preguntas.Include("Clase").Include("Tema") on ra.IdPregunta equals p.IdPregunta
+                                            where ra.IdPregunta == idPregunta && ra.IdAlumno == idAlumno
+                                            select new PreguntaAlumno
+                                            {
+                                                IdPregunta = p.IdPregunta,
+                                                Nro = p.Nro,
+                                                Pregunta1 = p.Pregunta1,
+                                                FechaDisponibleDesde = p.FechaDisponibleDesde,
+                                                FechaDisponibleHasta = p.FechaDisponibleHasta,
+                                                Clase = p.Clase,
+                                                Tema = p.Tema,
+                                                IdResultadoEvaluacion = ra.IdResultadoEvaluacion,
+                                                ResultadoEvaluacion = ra.ResultadoEvaluacion,
+                                                Orden = ra.Orden,
+                                                Puntos = ra.Puntos,
+                                                MejorRespuesta = ra.MejorRespuesta
+                                            }).FirstOrDefault();
+                return respuesta;
             }
         }
 
