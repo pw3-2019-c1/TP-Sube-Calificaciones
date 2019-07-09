@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using SubeCalificaciones.Models;
 
 namespace SubeCalificaciones.Services.PreguntaS
@@ -90,6 +91,10 @@ namespace SubeCalificaciones.Services.PreguntaS
             {
                 RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
                 respuesta.MejorRespuesta = true;
+
+                long puntos = CalcularPuntosMejorRespuesta(respuesta);
+                respuesta.Puntos = puntos;
+
                 db.SaveChanges();
             }
         }
@@ -102,6 +107,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 return respuesta;
             }
         }
+
         public static void CorregirRespuesta(int idRespuesta, int resultadoEvaluacion, int idProfesor)
         {
             using (db = new TP_20191CEntities())
@@ -109,17 +115,53 @@ namespace SubeCalificaciones.Services.PreguntaS
                 RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
 
                 int cantidadRespuestasCorrectas = (from r in db.RespuestaAlumnoes where r.IdPregunta == respuesta.IdPregunta && r.IdResultadoEvaluacion == 1 select r).Count();
-                
+
                 // Setea 1, 2 o 3 en evaluación, profesor que corrigió, cantRespuestasCorrectas y FechaHoraEvaluacion
-                respuesta.IdResultadoEvaluacion = resultadoEvaluacion; 
+                respuesta.IdResultadoEvaluacion = resultadoEvaluacion;
                 respuesta.IdProfesorEvaluador = idProfesor;
                 respuesta.RespuestasCorrectasHastaElMomento = cantidadRespuestasCorrectas;
                 respuesta.FechaHoraEvaluacion = DateTime.Now;
 
+                long puntos = 0;
+                if (resultadoEvaluacion != 3) // Si no es incorrecta
+                {
+                    puntos = CalcularPuntosDeRespuesta(respuesta);
+                }
+                respuesta.Puntos = puntos;
+
                 db.SaveChanges();
             }
         }
-		public static int ValidarExistencia(Pregunta p)
+
+        public static long CalcularPuntosDeRespuesta(RespuestaAlumno respuesta)
+        {
+            long puntajeMax = int.Parse(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
+            long cupo = int.Parse(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
+            long puntajeMinimo = puntajeMax / cupo;
+            long puntajeRespuesta = puntajeMax - (puntajeMinimo * respuesta.RespuestasCorrectasHastaElMomento.Value);
+
+            if(respuesta.IdResultadoEvaluacion == 2) // Regular
+            {
+                puntajeMinimo /= 2;
+                puntajeRespuesta /= 2;
+            }
+
+            if (puntajeRespuesta <= puntajeMinimo) {
+                return puntajeMinimo;
+            }
+
+            return puntajeRespuesta;
+        }
+        public static long CalcularPuntosMejorRespuesta(RespuestaAlumno respuesta)
+        {
+            long puntajeMax = int.Parse(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
+            long cupo = int.Parse(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
+            long puntajeRespuesta = respuesta.Puntos.Value + (puntajeMax / 2);
+
+            return puntajeRespuesta;
+        }
+
+        public static int ValidarExistencia(Pregunta p)
         {
             using (db = new TP_20191CEntities())
             {
