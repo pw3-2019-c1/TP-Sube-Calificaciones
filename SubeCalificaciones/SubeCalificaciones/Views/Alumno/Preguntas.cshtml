@@ -49,7 +49,7 @@
             }
             else
             {
-                <p class="@pregunta.ResultadoEvaluacion.Resultado">@pregunta.ResultadoEvaluacion.Resultado | @pregunta.Puntos | @pregunta.MejorRespuesta</p>
+    <p class="@pregunta.ResultadoEvaluacion.Resultado">@pregunta.ResultadoEvaluacion.Resultado | @pregunta.Orden° | @pregunta.Puntos @(pregunta.MejorRespuesta ? "| ¡Mejor respuesta!" : "")</p>
             }
         }
 
