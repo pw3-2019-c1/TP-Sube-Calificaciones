@@ -39,7 +39,10 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 Clase = p.Clase,
                                 Tema = p.Tema,
                                 IdResultadoEvaluacion = bgroup.IdResultadoEvaluacion,
-                                ResultadoEvaluacion = bgroup.ResultadoEvaluacion
+                                ResultadoEvaluacion = bgroup.ResultadoEvaluacion,
+                                Orden = bgroup.Orden,
+                                Puntos = bgroup.Puntos,
+                                MejorRespuesta = (bgroup.MejorRespuesta == null ? false : bgroup.MejorRespuesta)
                             };
 
                 if (filtro == 0)
@@ -83,7 +86,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 ResultadoEvaluacion = ra.ResultadoEvaluacion,
                                 Orden = ra.Orden,
                                 Puntos = ra.Puntos,
-                                MejorRespuesta = ra.MejorRespuesta                                
+                                MejorRespuesta = (ra.MejorRespuesta == null ? false : ra.MejorRespuesta)
                             };
                 }
                 List<PreguntaAlumno> preguntasList = query.ToList();

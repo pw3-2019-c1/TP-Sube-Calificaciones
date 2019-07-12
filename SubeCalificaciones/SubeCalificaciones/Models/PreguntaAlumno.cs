@@ -31,7 +31,7 @@ namespace SubeCalificaciones.Models
         public virtual ResultadoEvaluacion ResultadoEvaluacion { get; set; }
         public int IdAlumno { get; set; }
         public virtual Alumno Alumno { get; set; }
-        public int Orden { get; set; }
+        public Nullable<int> Orden { get; set; }
         public Nullable<long> Puntos { get; set; }
         public bool MejorRespuesta { get; set; }
     }
