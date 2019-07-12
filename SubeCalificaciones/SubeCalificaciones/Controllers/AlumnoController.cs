@@ -80,7 +80,7 @@ namespace SubeCalificaciones.Controllers
             return View(preguntas);
             //}
         }
-        public ActionResult VerRespuesta(int idPregunta)
+        public ActionResult VerRespuesta(int? idPregunta)
         {
             //if (!CheckSession())
             //{
@@ -88,8 +88,13 @@ namespace SubeCalificaciones.Controllers
             //}
             //else
             //{
-                //int idAlumno = Convert.ToInt32(Session["UserSession"]);
-                int idAlumno = 1;
+            //int idAlumno = Convert.ToInt32(Session["UserSession"]);
+            if (idPregunta == null)
+            {
+                return RedirectToAction("Preguntas");
+            }
+
+            int idAlumno = 1;
                 PreguntaAlumno respuesta = PreguntaService.GetRespuesta(idPregunta, idAlumno);
                 return View(respuesta);
             //}

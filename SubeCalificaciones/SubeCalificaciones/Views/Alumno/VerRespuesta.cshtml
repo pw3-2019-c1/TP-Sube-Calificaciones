@@ -13,8 +13,27 @@
     </div>
     <div class="panel-body">
         <p>@Model.Nro. @Model.Pregunta1</p>
-        <p class="@Model.ResultadoEvaluacion.Resultado">@Model.ResultadoEvaluacion.Resultado | @Model.Puntos | @Model.MejorRespuesta</p>
-        <textarea id="textarea" class="form-control" disabled>@Model.Respuesta</textarea>
-        <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
+        @if (Model.IdResultadoEvaluacion == null)
+        {
+
+            <p>Plazo vencido @Model.FechaDisponibleDesde - @Model.FechaDisponibleHasta</p>
+            <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
+            
+        }
+        else if (Model.IdResultadoEvaluacion >= 0)
+        {
+
+            if (Model.IdResultadoEvaluacion == 0)
+            {
+                <p>Corrección Pendiente</p>
+                <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
+            }
+            else
+            {
+                <p class="respuesta-@Model.ResultadoEvaluacion.Resultado.ToLower()">@Model.ResultadoEvaluacion.Resultado | @Model.Orden° | @Model.Puntos @(Model.MejorRespuesta ? "| ¡Mejor respuesta!" : "")</p>
+                <textarea id="textarea" class="form-control" disabled>@Model.Respuesta</textarea>
+                <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
+            }
+        }
     </div>
 </div>

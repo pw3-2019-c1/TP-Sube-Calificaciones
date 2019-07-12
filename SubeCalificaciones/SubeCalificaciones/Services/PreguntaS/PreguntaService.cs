@@ -105,7 +105,7 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-        public static PreguntaAlumno GetRespuesta(int idPregunta, int idAlumno)
+        public static PreguntaAlumno GetRespuesta(int? idPregunta, int idAlumno)
         {
             using (db = new TP_20191CEntities())
             {
