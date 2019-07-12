@@ -40,3 +40,17 @@
     resize: none;
     margin: 15px 0;
 }
+
+.pregunta-correcta, .pregunta-regular, .pregunta-mal {
+    font-weight: bold;
+}
+
+.pregunta-correcta {
+    color: #3c763d;
+}
+.pregunta-regular {
+    color: #ceb532;
+}
+.pregunta-mal {
+    color: #a94442;
+}
