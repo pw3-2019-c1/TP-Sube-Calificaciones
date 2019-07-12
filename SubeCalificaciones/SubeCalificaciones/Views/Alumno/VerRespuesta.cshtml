@@ -5,38 +5,16 @@
     Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
 }
 
-<h2>VerRespuesta</h2>
+<h2>Ver Respuesta</h2>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        @Model.Clase.Nombre - @Model.Tema.Nombre Hasta @Model.FechaDisponibleHasta
+        @Model.Clase.Nombre - @Model.Tema.Nombre
     </div>
     <div class="panel-body">
-        @Model.Nro. @Model.Pregunta1
-        @if (Model.IdResultadoEvaluacion == null)
-        {
-            if (Model.CurrentDate > Model.FechaDisponibleHasta)
-            {
-                <p>Plazo vencido @Model.FechaDisponibleDesde - @Model.FechaDisponibleHasta</p>
-            }
-            else
-            {
-                <a href="/Alumno/ResponderPregunta/@Model.IdPregunta" class="btn btn-xs btn-link">Responder</a>
-            }
-        }
-        else if (Model.IdResultadoEvaluacion >= 0)
-        {
-            <a href="/Alumno/VerPregunta/@Model.IdPregunta" class="btn btn-xs btn-link">Ver</a>
-
-            if (Model.IdResultadoEvaluacion == 0)
-            {
-                <p>Corrección Pendiente</p>
-            }
-            else
-            {
-                <p class="@Model.ResultadoEvaluacion.Resultado">@Model.ResultadoEvaluacion.Resultado | @Model.Puntos | @Model.MejorRespuesta</p>
-            }
-        }
-
+        <p>@Model.Nro. @Model.Pregunta1</p>
+        <p class="@Model.ResultadoEvaluacion.Resultado">@Model.ResultadoEvaluacion.Resultado | @Model.Puntos | @Model.MejorRespuesta</p>
+        <textarea id="textarea" class="form-control" disabled>@Model.Respuesta</textarea>
+        <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
     </div>
 </div>

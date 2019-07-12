@@ -35,3 +35,8 @@
     left: 5px;
     color: #e7b21d;
 }
+
+#textarea {
+    resize: none;
+    margin: 15px 0;
+}

@@ -106,7 +106,7 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                PreguntaAlumno respuesta = (from ra in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion").Include("Pregunta")
+                PreguntaAlumno respuesta = (from ra in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion")
                                             join p in db.Preguntas.Include("Clase").Include("Tema") on ra.IdPregunta equals p.IdPregunta
                                             where ra.IdPregunta == idPregunta && ra.IdAlumno == idAlumno
                                             select new PreguntaAlumno
@@ -122,7 +122,8 @@ namespace SubeCalificaciones.Services.PreguntaS
                                                 ResultadoEvaluacion = ra.ResultadoEvaluacion,
                                                 Orden = ra.Orden,
                                                 Puntos = ra.Puntos,
-                                                MejorRespuesta = ra.MejorRespuesta
+                                                MejorRespuesta = ra.MejorRespuesta,
+                                                Respuesta = ra.Respuesta
                                             }).FirstOrDefault();
                 return respuesta;
             }

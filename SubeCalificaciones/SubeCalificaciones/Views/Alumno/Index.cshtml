@@ -32,7 +32,7 @@
                                     @{ if (AlRankinList.Nombre == ViewBag.alNombre
                                                 && AlRankinList.Apellido == ViewBag.alApellido)
                                         {
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         }
                                     }
                                 </td>
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel panel-primary">
-                        <div id="home-panel-ques" class="panel-heading" style="display:flex;min-height:85px;justify-content:center;flex-direction:column;font-style:italic;">
+                        <div id="home-panel-ques" class="panel-heading">
                             <h3 class="panel-title">@ViewBag.FirstLQNr - @ViewBag.FirstLQTitle</h3>
                         </div>
                         <div class="table-responsive">
@@ -74,7 +74,7 @@
                                                 @{ if (FirstLQAlumnos.AlumnoNombre == ViewBag.alNombre
                                                             && FirstLQAlumnos.AlumnoApe == ViewBag.alApellido)
                                                     {
-                                                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                                     }
                                                 }
                                             </td>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="panel panel-info">
-                        <div id="home-panel-ques" class="panel-heading" style="display:flex;min-height:85px;justify-content:center;flex-direction:column;font-style:italic;">
+                        <div id="home-panel-ques" class="panel-heading">
                             <h3 class="panel-title">@ViewBag.SecondLQNr - @ViewBag.SecondLQTitle</h3>
                         </div>
                         <div class="table-responsive">
@@ -112,7 +112,7 @@
                                                 @{ if (SecondLQAlumnos.AlumnoNombre == ViewBag.alNombre
                                                            && SecondLQAlumnos.AlumnoApe == ViewBag.alApellido)
                                                     {
-                                                        <span class="glyphicon glyphicon-star" aria-hidden="true" style="left:5px;color:#e7b21d;"></span>
+                                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                                     }
                                                 }
                                             </td>

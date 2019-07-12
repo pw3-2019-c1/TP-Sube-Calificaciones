@@ -24,16 +24,18 @@ namespace SubeCalificaciones.Controllers
         }
         public ActionResult Index()
         {
-            if (!CheckSession())
-            {
-                return RedirectToAction("Ingresar", "Home");
-            }
-            else
-            {
-                int alID = Convert.ToInt32(Session["UserSession"]);
-                if (CheckSession())
-                {
-                    Data.SetAlumnoId(alID);
+            //if (!CheckSession())
+            //{
+            //    return RedirectToAction("Ingresar", "Home");
+            //}
+            //else
+            //{
+            //    int alID = Convert.ToInt32(Session["UserSession"]);
+            //    if (CheckSession())
+            //    {
+                    int idAlumno = 1;// for test <----------------------------------
+                    //Data.SetAlumnoId(alID);
+                    Data.SetAlumnoId(idAlumno);// for test <----------------------------------
                     Alumno al = Data.GetAlumno();
                     ViewBag.alNombre = al.Nombre;
                     ViewBag.alApellido = al.Apellido;
@@ -52,14 +54,15 @@ namespace SubeCalificaciones.Controllers
                     var secondLastQuest = LastQuest[1].NroPregunta;
                     ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(secondLastQuest);
                     //Questions not responded by Alumno
-                    ViewBag.NoRespList = Data.NotResponseQuest(alID);
+                    //ViewBag.NoRespList = Data.NotResponseQuest(alID);
+                    ViewBag.NoRespList = Data.NotResponseQuest(idAlumno);// for test <----------------------------------
 
                     return View();
-                } else
-                {
-                    return RedirectToAction("Ingresar", "Home");
-                }
-            }
+                //} else
+                //{
+                //    return RedirectToAction("Ingresar", "Home");
+                //}
+            //}
         }
 
         public ActionResult Preguntas(string filtro)
