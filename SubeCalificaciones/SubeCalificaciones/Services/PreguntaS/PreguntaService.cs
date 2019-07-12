@@ -28,6 +28,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                             //join ra in (from ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion") where ra.IdAlumno == idAlumno select ra)
                             on p.IdPregunta equals ra.IdPregunta
                             into agroup from bgroup in (from ra in agroup where ra.IdAlumno == idAlumno select ra).DefaultIfEmpty()
+                            where p.FechaDisponibleDesde < DateTime.Now
                             orderby p.Nro descending
                             select new PreguntaAlumno
                             {
