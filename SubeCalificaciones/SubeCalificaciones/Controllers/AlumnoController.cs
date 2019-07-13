@@ -114,12 +114,13 @@ namespace SubeCalificaciones.Controllers
                 return RedirectToAction("Preguntas");
             }
 
-            Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
-            return View(pregunta);
+            //Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+            ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
+            return View();
             //}
         }
         [HttpPost]
-        public ActionResult ResponderPregunta(RespuestaAlumno ra)
+        public ActionResult ResponderPregunta(int? idPregunta, RespuestaAlumno ra)
         {
             //if (!CheckSession())
             //{
@@ -129,11 +130,13 @@ namespace SubeCalificaciones.Controllers
             //{
             if (ModelState.IsValid)
             {
-                PreguntaService.AddRespuesta(ra);
+                int idAlumno = 2;
+                PreguntaService.AddRespuesta(ra, idPregunta, idAlumno);
                 return RedirectToAction("Preguntas");
             }
             else
             {
+                ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
                 return View(ra);
             }
             //}
