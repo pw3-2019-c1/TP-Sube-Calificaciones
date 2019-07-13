@@ -70,15 +70,13 @@
                                         <tr>
                                             <td class="text-center">@x</td>
                                             <td>
-                                                @FirstLQAlumnos.AlumnoNombre @FirstLQAlumnos.AlumnoApe
-                                                @{ if (FirstLQAlumnos.AlumnoNombre == ViewBag.alNombre
-                                                            && FirstLQAlumnos.AlumnoApe == ViewBag.alApellido)
-                                                    {
-                                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                                    }
+                                                @FirstLQAlumnos.Nombre @FirstLQAlumnos.Apellido
+                                                @if (FirstLQAlumnos.MejorRespuesta)
+                                                {
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                                 }
                                             </td>
-                                            <td class="text-center">@FirstLQAlumnos.PtosRsta</td>
+                                            <td class="text-center">@FirstLQAlumnos.Puntos</td>
                                         </tr>
                                         x++;
                                     }
@@ -108,15 +106,13 @@
                                         <tr>
                                             <td class="text-center">@y</td>
                                             <td>
-                                                @SecondLQAlumnos.AlumnoNombre @SecondLQAlumnos.AlumnoApe
-                                                @{ if (SecondLQAlumnos.AlumnoNombre == ViewBag.alNombre
-                                                           && SecondLQAlumnos.AlumnoApe == ViewBag.alApellido)
-                                                    {
-                                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                                                    }
-                                                }
+                                                 @SecondLQAlumnos.Nombre @SecondLQAlumnos.Apellido
+                                                 @if (SecondLQAlumnos.MejorRespuesta)
+                                                 {
+                                                   <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                 }
                                             </td>
-                                            <td class="text-center">@SecondLQAlumnos.PtosRsta</td>
+                                            <td class="text-center">@SecondLQAlumnos.Puntos</td>
                                         </tr>
                                         y++;
                                     }

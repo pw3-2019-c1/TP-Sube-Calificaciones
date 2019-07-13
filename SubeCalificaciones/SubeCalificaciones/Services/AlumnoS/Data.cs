@@ -18,63 +18,56 @@ namespace SubeCalificaciones.Services.AlumnoS
         {
             using(db = new TP_20191CEntities())
             {
-                var Alumnos = db.Alumnoes;
-                Alumno al = (from a in Alumnos where a.IdAlumno == SuperIdAlumno select a).FirstOrDefault();
+                Alumno al = (from a in db.Alumnoes where a.IdAlumno == SuperIdAlumno select a).FirstOrDefault();
                 return al;
             }
         }
         public static List<Alumno> GetAlumnosRankin() {
             using (db = new TP_20191CEntities())
             {
-                var Alumnos = db.Alumnoes;
-                List<Alumno> alRankinList = (from a in Alumnos orderby a.PuntosTotales descending select a).Take(5).ToList();
+                List<Alumno> alRankinList = (from a in db.Alumnoes orderby a.PuntosTotales descending select a).Take(5).ToList();
                 return alRankinList;
             }
         }
 
-        public static List<LastRankPregunta> RankinOld()
+        public static List<Pregunta> RankinOld()
         {
             using (db = new TP_20191CEntities())
             {
-                var Preguntas = db.Preguntas;
-                var Respuestas = db.RespuestaAlumnoes;
-                DateTime FechaActual = new DateTime(2019,4,30) ;
-                //var FechaActual = DateTime.Now;
-                
-                var LastTwoQuest = (from r in Respuestas
-                                    join p in Preguntas
-                                    on r.IdRespuestaAlumno equals p.IdPregunta
-                                    orderby p.Nro descending
-                                    where p.FechaDisponibleHasta < FechaActual
-                                    select new LastRankPregunta()
-                                    {
-                                        NroPregunta = p.Nro,
-                                        TipoPregunta = p.Pregunta1
-                                    }).Take(2).ToList();
-                
-                return LastTwoQuest;
+                return (from p in db.Preguntas
+                        where p.FechaDisponibleHasta < new DateTime(2019, 4, 30)
+                        //where p.FechaDisponibleHasta < DateTime.Now
+                        orderby p.Nro descending
+                        select p).Take(2).ToList();
+
+                //return (from r in db.RespuestaAlumnoes
+                //        join p in db.Preguntas
+                //        on r.IdRespuestaAlumno equals p.IdPregunta
+                //        orderby p.Nro descending
+                //        where p.FechaDisponibleHasta != null && p.FechaDisponibleHasta < DateTime.Now
+                //        select new LastRankPregunta()
+                //        {
+                //            NroPregunta = p.Nro,
+                //            TipoPregunta = p.Pregunta1
+                //        }).Take(2).ToList();
             }
         }
         public static List<LastRankAlumno> RankinOldAlumnos(int idLastRank)
         {
             using (db = new TP_20191CEntities())
             {
-                var Respuestas = db.RespuestaAlumnoes;
-                var Alumnos = db.Alumnoes;
-
-                var TopTenAlumnos = (from a in Alumnos
-                                   join r in Respuestas
-                                   on a.IdAlumno equals r.IdAlumno
-                                   orderby r.Puntos descending
-                                   where r.IdPregunta == idLastRank
-                                   select new LastRankAlumno()
-                                   {
-                                       AlumnoNombre = a.Nombre,
-                                       AlumnoApe = a.Apellido,
-                                       PtosRsta = r.Puntos
-                                   }).Take(10).ToList();
-
-                return TopTenAlumnos;
+                return (from a in db.Alumnoes
+                        join r in db.RespuestaAlumnoes
+                        on a.IdAlumno equals r.IdAlumno
+                        orderby r.Puntos descending, r.MejorRespuesta descending
+                        where r.IdPregunta == idLastRank
+                        select new LastRankAlumno()
+                        {
+                            Nombre = a.Nombre,
+                            Apellido = a.Apellido,
+                            Puntos = r.Puntos,
+                            MejorRespuesta = r.MejorRespuesta
+                        }).Take(10).ToList();
             }
         }
 
@@ -82,12 +75,8 @@ namespace SubeCalificaciones.Services.AlumnoS
         {
             using (db = new TP_20191CEntities())
             {
-                var Preguntas = db.Preguntas;
-                var Respuestas = db.RespuestaAlumnoes;
-                var Alumnos = db.Alumnoes;
-
-                var PregNoResp = (from p in Preguntas
-                                  join r in Respuestas
+                var PregNoResp = (from p in db.Preguntas
+                                  join r in db.RespuestaAlumnoes
                                     on p.IdPregunta equals r.IdRespuestaAlumno
                                   where (p.RespuestaAlumnoes).Count() == 0 && r.IdAlumno == actualAlumno
                                   select new QuestionNotResp()
