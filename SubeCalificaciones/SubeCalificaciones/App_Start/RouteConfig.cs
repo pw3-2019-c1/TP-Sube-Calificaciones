@@ -33,6 +33,12 @@ namespace SubeCalificaciones
 
             routes.MapRoute(
                 name: "Alumno",
+                url: "{controller}/Inicio/{extra}",
+                defaults: new { controller = "Alumno", action = "Index", extra = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "InicioAlumno",
                 url: "{controller}/{action}/{extra}",
                 defaults: new { controller = "Alumno", action = "Index", extra = UrlParameter.Optional }
             );
