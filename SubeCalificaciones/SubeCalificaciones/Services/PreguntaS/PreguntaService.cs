@@ -42,7 +42,8 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 ResultadoEvaluacion = bgroup.ResultadoEvaluacion,
                                 Orden = bgroup.Orden,
                                 Puntos = bgroup.Puntos,
-                                MejorRespuesta = (bgroup.MejorRespuesta == null ? false : bgroup.MejorRespuesta)
+                                MejorRespuesta = (bgroup.MejorRespuesta == null ? false : bgroup.MejorRespuesta),
+                                Respuesta = bgroup.Respuesta
                             };
 
                 if(filtro >= 0)
