@@ -194,13 +194,16 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Alumno") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
                 respuesta.MejorRespuesta = true;
 
                 long puntos = CalcularPuntosMejorRespuesta(respuesta);
                 respuesta.Puntos = puntos;
 
                 db.SaveChanges();
+                // Actualiza datos en la tabla Alumnos
+                ActualizarPuntosTotales(respuesta.IdAlumno, puntos);
+                ActualizarCantidadDeRespuestas(respuesta.IdAlumno, 4); // Se utiliza 4 para mejor respuesta
             }
         }
 
@@ -217,7 +220,7 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion").Include("Alumno") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
 
                 int cantidadRespuestasCorrectas = (from r in db.RespuestaAlumnoes where r.IdPregunta == respuesta.IdPregunta && r.IdResultadoEvaluacion == 1 select r).Count();
 
@@ -235,6 +238,11 @@ namespace SubeCalificaciones.Services.PreguntaS
                 respuesta.Puntos = puntos;
 
                 db.SaveChanges();
+
+                // Actualiza datos en la tabla Alumnos
+                ActualizarPuntosTotales(respuesta.IdAlumno, puntos);
+                ActualizarCantidadDeRespuestas(respuesta.IdAlumno, resultadoEvaluacion);
+
             }
         }
 
@@ -264,6 +272,42 @@ namespace SubeCalificaciones.Services.PreguntaS
             long puntajeRespuesta = respuesta.Puntos.Value + (puntajeMax / 2);
 
             return puntajeRespuesta;
+        }
+        public static void ActualizarPuntosTotales(int idAlumno, long puntos)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                Alumno alumno = (from a in db.Alumnoes where a.IdAlumno == idAlumno select a).FirstOrDefault();
+
+                alumno.PuntosTotales += puntos;
+
+                db.SaveChanges();
+            }
+        }
+        public static void ActualizarCantidadDeRespuestas(int idAlumno, int idResultadoEvaluacion)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                Alumno alumno = (from a in db.Alumnoes where a.IdAlumno == idAlumno select a).FirstOrDefault();
+
+                if (idResultadoEvaluacion == 1) // Correcta
+                {
+                    alumno.CantidadRespuestasCorrectas++;
+                }
+                if (idResultadoEvaluacion == 2) // Regular
+                {
+                    alumno.CantidadRespuestasRegular++;
+                }
+                if (idResultadoEvaluacion == 3) // Mal
+                {
+                    alumno.CantidadRespuestasMal++;
+                }
+                if (idResultadoEvaluacion == 4) // Mejor respuesta
+                {
+                    alumno.CantidadMejorRespuesta++;
+                }
+                db.SaveChanges();
+            }
         }
 
         public static int ValidarExistencia(Pregunta p)
