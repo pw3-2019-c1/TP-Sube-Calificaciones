@@ -25,7 +25,6 @@ namespace SubeCalificaciones.Services.PreguntaS
             {
                 var query = from p in db.Preguntas.Include("Clase").Include("Tema")
                             join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
-                            //join ra in (from ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion") where ra.IdAlumno == idAlumno select ra)
                             on p.IdPregunta equals ra.IdPregunta
                             into agroup from bgroup in (from ra in agroup where ra.IdAlumno == idAlumno select ra).DefaultIfEmpty()
                             where p.FechaDisponibleDesde < DateTime.Now
@@ -46,33 +45,12 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 MejorRespuesta = (bgroup.MejorRespuesta == null ? false : bgroup.MejorRespuesta)
                             };
 
-                if (filtro == 0)
-                {
-                    query = from p in db.Preguntas.Include("Clase").Include("Tema")
-                            join ra in db.RespuestaAlumnoes
-                            on p.IdPregunta equals ra.IdPregunta
-                            where ra.IdAlumno == idAlumno
-                            where ra.IdResultadoEvaluacion == null
-                            orderby p.Nro descending
-                            select new PreguntaAlumno
-                            {
-                                IdPregunta = p.IdPregunta,
-                                Nro = p.Nro,
-                                Pregunta1 = p.Pregunta1,
-                                FechaDisponibleDesde = p.FechaDisponibleDesde,
-                                FechaDisponibleHasta = p.FechaDisponibleHasta,
-                                IdResultadoEvaluacion = 0,
-                                Clase = p.Clase,
-                                Tema = p.Tema
-                            };
-                }
-                else if(filtro > 0)
+                if(filtro >= 0)
                 {
                     query = from p in db.Preguntas.Include("Clase").Include("Tema")
                             join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
                             on p.IdPregunta equals ra.IdPregunta
                             where ra.IdAlumno == idAlumno
-                            where ra.IdResultadoEvaluacion == filtro
                             orderby p.Nro descending
                             select new PreguntaAlumno
                             {
@@ -89,6 +67,14 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 Puntos = ra.Puntos,
                                 MejorRespuesta = (ra.MejorRespuesta == null ? false : ra.MejorRespuesta)
                             };
+                    if(filtro == 0)
+                    {
+                        query = query.Where(ra => ra.IdResultadoEvaluacion == null);
+                    }
+                    else
+                    {
+                        query = query.Where(ra => ra.IdResultadoEvaluacion == filtro);
+                    }
                 }
                 List<PreguntaAlumno> preguntasList = query.ToList();
                 return preguntasList;
