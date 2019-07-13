@@ -37,11 +37,11 @@ namespace SubeCalificaciones.Services.AlumnoS
                 var query = (from p in db.Preguntas
                         join ra in db.RespuestaAlumnoes
                         on p.IdPregunta equals ra.IdPregunta
-                             orderby p.Nro descending
-                             where ra.IdResultadoEvaluacion != null
-                             select p).Distinct().OrderByDescending(p => p.Nro).Take(2);
+                        orderby p.Nro descending
+                        where ra.IdResultadoEvaluacion != null
+                        select p).Distinct().OrderByDescending(p => p.Nro).Take(2);
 
-                return query.ToList(); ;
+                return query.ToList();
                 //return (from p in db.Preguntas
 
                 //        where p.FechaDisponibleHasta < new DateTime(2019, 4, 30)

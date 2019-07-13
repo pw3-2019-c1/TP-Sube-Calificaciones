@@ -144,6 +144,17 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
+        public static int GetOrdenPregunta(int idPregunta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                return Convert.ToInt32((from ra in db.RespuestaAlumnoes
+                                        where ra.IdPregunta == idPregunta
+                                        orderby ra.Orden descending
+                                        select ra.Orden).FirstOrDefault());
+            }
+        }
+
         public static void AddRespuesta(RespuestaAlumno ra)
         {
             using (db = new TP_20191CEntities())

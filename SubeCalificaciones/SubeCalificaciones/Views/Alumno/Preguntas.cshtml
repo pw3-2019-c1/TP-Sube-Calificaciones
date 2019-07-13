@@ -30,19 +30,26 @@
         @pregunta.Nro. @pregunta.Pregunta1
         @if (pregunta.IdResultadoEvaluacion == null)
         {
-            if (pregunta.CurrentDate > Convert.ToDateTime(pregunta.FechaDisponibleHasta))
+            if (pregunta.Respuesta != null)
             {
-                <p>Plazo vencido @pregunta.FechaDisponibleDesde - @pregunta.FechaDisponibleHasta</p>
+                <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a>
             }
             else
             {
-                <a href="/Alumno/ResponderPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Responder</a>
+                if (pregunta.CurrentDate > Convert.ToDateTime(pregunta.FechaDisponibleHasta))
+                {
+                    <p>Plazo vencido @pregunta.FechaDisponibleDesde - @pregunta.FechaDisponibleHasta</p>
+                }
+                else
+                {
+                    <a href="/Alumno/ResponderPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Responder</a>
+                }
             }
         }
         else if (pregunta.IdResultadoEvaluacion >= 0)
         {
             <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a>
-            
+
             if (pregunta.IdResultadoEvaluacion == 0)
             {
                 <p>Corrección Pendiente</p>

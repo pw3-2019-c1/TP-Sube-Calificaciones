@@ -42,13 +42,19 @@ namespace SubeCalificaciones.Controllers
                     //Old Rank questions 1
                     ViewBag.FirstLQTitle = LastQuest[0].Pregunta1;
                     ViewBag.FirstLQNr = LastQuest[0].Nro;
-                    var firstLastQuest = LastQuest[0].Nro;
-                    ViewBag.FirstLQAlumnos = Data.RankinOldAlumnos(firstLastQuest);
+                    ViewBag.FirstLQAlumnos = Data.RankinOldAlumnos(LastQuest[0].Nro);
                     //Old Rank questions 2
                     ViewBag.SecondLQTitle = LastQuest[1].Pregunta1;
                     ViewBag.SecondLQNr = LastQuest[1].Nro;
-                    var secondLastQuest = LastQuest[1].Nro;
-                    ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(secondLastQuest);
+                    List<Pregunta> LastQuestions = new List<Pregunta> {
+                        Data.RankinOldAlumnos(LastQuest[0].Nro),
+                        Data.RankinOldAlumnos(LastQuest[1].Nro)
+                    };
+                    LastQuestions[0] =
+                    LastQuestions[1] = 
+                    ViewBag.LastQuestions = LastQuestions;
+
+                    ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(LastQuest[1].Nro);
                     //Questions not responded by Alumno
                     ViewBag.NoRespList = Data.NotResponseQuest(alID);
                     PreguntaService.GetPreguntasAlumnoSinResponder(alID);
