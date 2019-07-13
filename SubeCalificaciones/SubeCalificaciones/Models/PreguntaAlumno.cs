@@ -34,5 +34,6 @@ namespace SubeCalificaciones.Models
         public Nullable<int> Orden { get; set; }
         public Nullable<long> Puntos { get; set; }
         public bool MejorRespuesta { get; set; }
+        public string Respuesta { get; set; }
     }
 }

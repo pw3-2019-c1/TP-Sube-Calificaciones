@@ -34,7 +34,7 @@ namespace SubeCalificaciones.Controllers
             int alID = 1;
                 //if (CheckSession())
                 //{
-            Data.SetAlumnoId(alID);
+                    Data.SetAlumnoId(alID);
                     Alumno al = Data.GetAlumno();
                     ViewBag.alNombre = al.Nombre;
                     ViewBag.alApellido = al.Apellido;
@@ -54,6 +54,7 @@ namespace SubeCalificaciones.Controllers
                     ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(secondLastQuest);
                     //Questions not responded by Alumno
                     ViewBag.NoRespList = Data.NotResponseQuest(alID);
+                    
 
                     return View();
                 //} else
@@ -78,7 +79,7 @@ namespace SubeCalificaciones.Controllers
             return View(preguntas);
             //}
         }
-        public ActionResult VerRespuesta(int idPregunta)
+        public ActionResult VerRespuesta(int? idPregunta)
         {
             //if (!CheckSession())
             //{
@@ -86,8 +87,13 @@ namespace SubeCalificaciones.Controllers
             //}
             //else
             //{
-                //int idAlumno = Convert.ToInt32(Session["UserSession"]);
-                int idAlumno = 1;
+            //int idAlumno = Convert.ToInt32(Session["UserSession"]);
+            if (idPregunta == null)
+            {
+                return RedirectToAction("Preguntas");
+            }
+
+            int idAlumno = 1;
                 PreguntaAlumno respuesta = PreguntaService.GetRespuesta(idPregunta, idAlumno);
                 return View(respuesta);
             //}
