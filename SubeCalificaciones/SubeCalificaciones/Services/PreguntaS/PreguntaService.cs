@@ -145,13 +145,21 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-        public static void AddRespuesta(RespuestaAlumno ra)
+        public static void AddRespuesta(RespuestaAlumno ra, int? idPregunta, int idAlumno)
         {
             using (db = new TP_20191CEntities())
             {
-                var a = ra;
-                //db.RespuestaAlumnoes.Add(ra);
-                //db.SaveChanges();
+                ra.IdAlumno = idAlumno;
+                ra.IdPregunta = Convert.ToInt32(idPregunta);
+                ra.FechaHoraRespuesta = DateTime.Now;
+                ra.Orden = Convert.ToInt32((from Ra in db.RespuestaAlumnoes
+                                            where Ra.IdPregunta == idPregunta
+                                            orderby Ra.Orden descending
+                                            select Ra.Orden).FirstOrDefault()) + 1;
+                ra.MejorRespuesta = false;
+                var final = ra;
+                db.RespuestaAlumnoes.Add(ra);
+                db.SaveChanges();
             }
         }
 
