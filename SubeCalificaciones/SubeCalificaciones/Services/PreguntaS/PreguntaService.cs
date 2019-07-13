@@ -81,7 +81,7 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-        public static List<PreguntaAlumno> SinResponder(int idAlumno)
+        public static List<Pregunta> GetPreguntasAlumnoSinResponder(int idAlumno)
         {
             using (db = new TP_20191CEntities())
             {
@@ -89,20 +89,11 @@ namespace SubeCalificaciones.Services.PreguntaS
                             join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
                             on p.IdPregunta equals ra.IdPregunta
                             into agroup
-                            from p in agroup.DefaultIfEmpty()
-                            where p.FechaDisponibleDesde < DateTime.Now
+                            from ra in agroup.DefaultIfEmpty()
+                            where p.FechaDisponibleDesde < DateTime.Now && ra.IdAlumno == idAlumno
                             orderby p.Nro descending
-                            select new PreguntaAlumno
-                            {
-                                IdPregunta = p.IdPregunta,
-                                Nro = p.Nro,
-                                Pregunta1 = p.Pregunta1,
-                                FechaDisponibleDesde = p.FechaDisponibleDesde,
-                                FechaDisponibleHasta = p.FechaDisponibleHasta,
-                                Clase = p.Clase,
-                                Tema = p.Tema
-                            };
-                List<PreguntaAlumno> preguntasList = query.ToList();
+                            select p;
+                List<Pregunta> preguntasList = query.ToList();
                 return preguntasList;
             }
         }
