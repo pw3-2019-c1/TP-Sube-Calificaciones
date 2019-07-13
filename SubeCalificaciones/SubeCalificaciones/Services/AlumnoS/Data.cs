@@ -34,11 +34,20 @@ namespace SubeCalificaciones.Services.AlumnoS
         {
             using (db = new TP_20191CEntities())
             {
-                return (from p in db.Preguntas
-                        where p.FechaDisponibleHasta < new DateTime(2019, 4, 30)
-                        //where p.FechaDisponibleHasta < DateTime.Now
-                        orderby p.Nro descending
-                        select p).Take(2).ToList();
+                var query = (from p in db.Preguntas
+                        join ra in db.RespuestaAlumnoes
+                        on p.IdPregunta equals ra.IdPregunta
+                             orderby p.Nro descending
+                             where ra.IdResultadoEvaluacion != null
+                             select p).Distinct().OrderByDescending(p => p.Nro).Take(2);
+
+                return query.ToList(); ;
+                //return (from p in db.Preguntas
+
+                //        where p.FechaDisponibleHasta < new DateTime(2019, 4, 30)
+                //        //where p.FechaDisponibleHasta < DateTime.Now
+                //        orderby p.Nro descending
+                //        select p).Take(2).ToList();
 
                 //return (from r in db.RespuestaAlumnoes
                 //        join p in db.Preguntas
@@ -68,6 +77,18 @@ namespace SubeCalificaciones.Services.AlumnoS
                             Puntos = r.Puntos,
                             MejorRespuesta = r.MejorRespuesta
                         }).Take(10).ToList();
+                //return (from a in db.Alumnoes
+                //        join r in db.RespuestaAlumnoes
+                //        on a.IdAlumno equals r.IdAlumno
+                //        orderby r.Puntos descending, r.MejorRespuesta descending
+                //        where r.IdPregunta == idLastRank
+                //        select new LastRankAlumno()
+                //        {
+                //            Nombre = a.Nombre,
+                //            Apellido = a.Apellido,
+                //            Puntos = r.Puntos,
+                //            MejorRespuesta = r.MejorRespuesta
+                //        }).Take(10).ToList();
             }
         }
 

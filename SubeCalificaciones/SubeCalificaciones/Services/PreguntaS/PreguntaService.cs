@@ -85,16 +85,15 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                var query = from p in db.Preguntas.Include("Clase").Include("Tema")
-                            join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
-                            on p.IdPregunta equals ra.IdPregunta
-                            into agroup
-                            from ra in agroup.DefaultIfEmpty()
-                            where p.FechaDisponibleDesde < DateTime.Now && ra.IdAlumno == idAlumno
-                            orderby p.Nro descending
-                            select p;
-                List<Pregunta> preguntasList = query.ToList();
-                return preguntasList;
+                return (from p in db.Preguntas.Include("Clase").Include("Tema")
+                        join ra in db.RespuestaAlumnoes
+                        on p.IdPregunta equals ra.IdPregunta
+                        into agroup
+                        from bgroup in agroup.DefaultIfEmpty()
+                        where p.FechaDisponibleHasta > DateTime.Now
+                        && bgroup.IdRespuestaAlumno == null
+                        orderby p.Nro descending
+                        select p).ToList();
             }
         }
 

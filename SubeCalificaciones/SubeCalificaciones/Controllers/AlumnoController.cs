@@ -50,7 +50,7 @@ namespace SubeCalificaciones.Controllers
                     ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(secondLastQuest);
                     //Questions not responded by Alumno
                     ViewBag.NoRespList = Data.NotResponseQuest(alID);
-                    
+                    PreguntaService.GetPreguntasAlumnoSinResponder(alID);
 
                     return View();
                 //} else
