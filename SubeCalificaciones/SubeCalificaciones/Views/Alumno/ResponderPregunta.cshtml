@@ -5,15 +5,25 @@
     Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
 }
 
-<h2>ResponderPregunta</h2>
+<h2>Responder Pregunta</h2>
 
-@Model.IdPregunta
-@Model.Nro
-@Model.Clase
-@Model.FechaDisponibleHasta
-@Model.Pregunta1
-
-<form action="/Alumno/ResponderPregunta" method="post">
-
-
-</form>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @Model.Clase.Nombre - @Model.Tema.Nombre
+    </div>
+    <div class="panel-body">
+        <p>@Model.Nro. @Model.Pregunta1</p>
+        <p>Se puede responder hasta: @Model.FechaDisponibleHasta</p>
+        <form action="/Alumno/ResponderPregunta" method="post">
+            @*<input type="hidden" name="IdPregunta" value="@Model.IdPregunta" />
+            <input type="hidden" name="IdAlumno" value="@Session["UserSession"]" />
+            <input type="hidden" name="FechaHoraRespuesta" value="@DateTime.Now" />
+            <input type="hidden" name="Orden" value="0" />
+            <input type="hidden" name="MejorRespuesta" value="false" />*@
+            <textarea id="textarea" class="form-control" rows="5" placeholder="Ingrese su respuesta aqui..." name="Respuesta"></textarea>
+            @Html.ValidationMessageFor(rp => rp.RespuestaAlumnoes, "", new { @class = "text-danger" })
+            <input type="submit" value="Enviar Respuesta" class="btn btn-success" />
+            <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
+        </form>
+    </div>
+</div>

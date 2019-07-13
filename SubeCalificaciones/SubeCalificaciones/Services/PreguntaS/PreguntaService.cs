@@ -100,7 +100,7 @@ namespace SubeCalificaciones.Services.PreguntaS
 
 
 
-        public static Pregunta GetPregunta(int idPregunta)
+        public static Pregunta GetPregunta(int? idPregunta)
         {
             using (db = new TP_20191CEntities())
             {
@@ -142,6 +142,16 @@ namespace SubeCalificaciones.Services.PreguntaS
             {
                 db.Preguntas.Add(preguntaNueva);
                 db.SaveChanges();
+            }
+        }
+
+        public static void AddRespuesta(RespuestaAlumno ra)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                var a = ra;
+                //db.RespuestaAlumnoes.Add(ra);
+                //db.SaveChanges();
             }
         }
 

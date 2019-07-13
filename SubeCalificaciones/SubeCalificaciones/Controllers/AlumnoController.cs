@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
+using SubeCalificaciones.Services;
 using SubeCalificaciones.Services.AlumnoS;
 using SubeCalificaciones.Services.PreguntaS;
 
@@ -94,29 +95,42 @@ namespace SubeCalificaciones.Controllers
                 return View(respuesta);
             //}
         }
-        public ActionResult ResponderPregunta(int idPregunta)
+        public ActionResult ResponderPregunta(int? idPregunta)
         {
-            if (!CheckSession())
-            {
-                return RedirectToAction("Ingresar", "Home");
-            }
-            else
-            {
-                Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
-                return View(pregunta);
-            }
-        }
-        [HttpPost]
-        public ActionResult ResponderPregunta()
-        {
-            if (!CheckSession())
-            {
-                return RedirectToAction("Ingresar", "Home");
-            }
-            else
+            //if (!CheckSession())
+            //{
+            //    return RedirectToAction("Ingresar", "Home");
+            //}
+            //else
+            //{
+            if (idPregunta == null)
             {
                 return RedirectToAction("Preguntas");
             }
+
+            Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+            return View(pregunta);
+            //}
+        }
+        [HttpPost]
+        public ActionResult ResponderPregunta(RespuestaAlumno ra)
+        {
+            //if (!CheckSession())
+            //{
+            //    return RedirectToAction("Ingresar", "Home");
+            //}
+            //else
+            //{
+            if (ModelState.IsValid)
+            {
+                PreguntaService.AddRespuesta(ra);
+                return RedirectToAction("Preguntas");
+            }
+            else
+            {
+                return View(ra);
+            }
+            //}
         }
 
         public ActionResult AcercaDe()

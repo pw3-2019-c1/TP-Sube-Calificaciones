@@ -22,7 +22,7 @@ namespace SubeCalificaciones
             routes.MapRoute(
                 name: "ResponderPregunta",
                 url: "Alumno/ResponderPregunta/{idPregunta}",
-                defaults: new { controller = "Alumno", action = "ResponderPregunta" }
+                defaults: new { controller = "Alumno", action = "ResponderPregunta", idPregunta = UrlParameter.Optional }
             );
 
             routes.MapRoute(

@@ -29,7 +29,7 @@
             else
             {
                 <p class="pregunta-@Model.ResultadoEvaluacion.Resultado.ToLower()">@Model.ResultadoEvaluacion.Resultado @(Model.ResultadoEvaluacion.Resultado != "Mal" ? "| " + Model.Orden + "° | " + Model.Puntos : "") @(Model.MejorRespuesta ? "| ¡Mejor respuesta!" : "")</p>
-                <textarea id="textarea" class="form-control" disabled>@Model.Respuesta</textarea>
+                <textarea id="textarea" class="form-control" rows="5" disabled>@Model.Respuesta</textarea>
             }
         }
         <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
