@@ -34,10 +34,6 @@ namespace SubeCalificaciones.Controllers
             int alID = 1;
                 //if (CheckSession())
                 //{
-                    Data.SetAlumnoId(alID);
-                    Alumno al = Data.GetAlumno();
-                    ViewBag.alNombre = al.Nombre;
-                    ViewBag.alApellido = al.Apellido;
                     //Top 5 Rank
                     ViewBag.AlRankinList = Data.GetAlumnosRankin();
                     //Old Rank

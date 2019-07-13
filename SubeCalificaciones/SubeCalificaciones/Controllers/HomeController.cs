@@ -37,7 +37,6 @@ namespace SubeCalificaciones.Controllers
                     if (profesorDetails == null)
                     {
                         ua.LoggError = "Datos invalidos, intente nuevamente.";
-                        return View(ua);
                     }
                     else
                     {
@@ -45,6 +44,7 @@ namespace SubeCalificaciones.Controllers
                         //string UserHashed = GetSHA1(UserToHash);
                         //Session["UserSession"] = UserHashed;
                         Session["UserSession"] = (profesorDetails.IdProfesor).ToString();
+                        Session["UserName"] = profesorDetails.Nombre + " " + profesorDetails.Apellido;
                         return Redirect("/Profesor");
                     }
                 } else
@@ -53,7 +53,6 @@ namespace SubeCalificaciones.Controllers
                     if (alumnoDetails == null)
                     {
                         ua.LoggError = "Datos invalidos, intente nuevamente.";
-                        return View(ua);
                     }
                     else
                     {
@@ -61,14 +60,12 @@ namespace SubeCalificaciones.Controllers
                         //string UserHashed = GetSHA1(UserToHash);
                         //Session["UserSession"] = UserHashed;
                         Session["UserSession"] = (alumnoDetails.IdAlumno).ToString();
+                        Session["UserName"] = alumnoDetails.Nombre + " " + alumnoDetails.Apellido;
                         return Redirect("/Alumno");
                     }
                 }
             }
-            else
-            {
-                return View(ua);
-            }
+            return View(ua);
 
         }
 
