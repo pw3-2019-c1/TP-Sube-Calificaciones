@@ -15,6 +15,6 @@ namespace SubeCalificaciones.Models
         [Required(ErrorMessage = "La contraseña es requerida.")]
         public string InputPassword { get; set; }
         public bool IsProfesor { get; set; }
-        public string LoggError { get; set; }
+        public string LogError { get; set; }
     }
 }

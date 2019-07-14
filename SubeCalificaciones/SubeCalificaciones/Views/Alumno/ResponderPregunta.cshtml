@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "ResponderPregunta";
-    Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
+    Layout = "~/Views/Shared/_AlumnoLayout.cshtml";
 }
 
 <h2>Responder Pregunta</h2>
@@ -19,6 +19,7 @@
             @Html.ValidationMessageFor(rp => rp.Respuesta, "", new { @class = "text-danger" })
             <br /><br />
             <input type="submit" value="Enviar Respuesta" class="btn btn-success" />
+
             <a href="/Alumno/Preguntas" class="btn btn-primary" role="button">Volver</a>
         </form>
     </div>

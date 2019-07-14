@@ -16,10 +16,13 @@ namespace SubeCalificaciones
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //BundleTable.EnableOptimizations = true;
         }
         protected void Session_Start(Object sender, EventArgs e)
         {
             Session["UserSession"] = String.Empty;
+            Session["UserName"] = String.Empty;
+            Session["UserType"] = String.Empty;
         }
     }
 }

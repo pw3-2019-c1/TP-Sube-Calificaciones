@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using SubeCalificaciones.Models;
 
-namespace SubeCalificaciones.Services.Home
+namespace SubeCalificaciones.Services
 {
     public class CheckUserToLog
     {
@@ -12,7 +12,7 @@ namespace SubeCalificaciones.Services.Home
 
         public static Profesor GetProfesor(UsuarioAnonimo ua)
         {
-            using(db = new TP_20191CEntities())
+            using (db = new TP_20191CEntities())
             {
                 return (from p in db.Profesors where p.Email == ua.InputEmail && p.Password == ua.InputPassword select p).FirstOrDefault();
             }

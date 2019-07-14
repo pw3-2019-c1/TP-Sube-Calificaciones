@@ -4,26 +4,14 @@ using System.Linq;
 using System.Web;
 using SubeCalificaciones.Models;
 
-namespace SubeCalificaciones.Services.AlumnoS
+namespace SubeCalificaciones.Services
 {
-    public class Data
+    public class HomeService
     {
         private static TP_20191CEntities db;
-        private static int SuperIdAlumno;
-        public static void SetAlumnoId(int id)
+
+        public static List<Alumno> GetAlumnosRanking()
         {
-            SuperIdAlumno = id;
-        }
-        public static Alumno GetAlumno()
-        {
-            using(db = new TP_20191CEntities())
-            {
-                return (from a in db.Alumnoes
-                        where a.IdAlumno == SuperIdAlumno
-                        select a).FirstOrDefault();
-            }
-        }
-        public static List<Alumno> GetAlumnosRankin() {
             using (db = new TP_20191CEntities())
             {
                 return (from a in db.Alumnoes
@@ -32,21 +20,19 @@ namespace SubeCalificaciones.Services.AlumnoS
             }
         }
 
-        public static List<Pregunta> RankinOld()
+        public static List<Pregunta> GetLastQuestions()
         {
             using (db = new TP_20191CEntities())
             {
-                var query = (from p in db.Preguntas
+                return (from p in db.Preguntas
                         join ra in db.RespuestaAlumnoes
                         on p.IdPregunta equals ra.IdPregunta
                         orderby p.Nro descending
                         where ra.IdResultadoEvaluacion != null
-                        select p).Distinct().OrderByDescending(p => p.Nro).Take(2);
-
-                return query.ToList();
+                        select p).Distinct().OrderByDescending(p => p.Nro).Take(2).ToList();
             }
         }
-        public static List<RespuestaAlumno> RankinOldAlumnos(int idPregunta)
+        public static List<RespuestaAlumno> GetQuestionRanking(int idPregunta)
         {
             using (db = new TP_20191CEntities())
             {
@@ -54,6 +40,22 @@ namespace SubeCalificaciones.Services.AlumnoS
                         orderby ra.Puntos descending, ra.MejorRespuesta descending
                         where ra.IdPregunta == idPregunta
                         select ra).Take(10).ToList();
+            }
+        }
+
+        public static List<Pregunta> GetUnansweredQuestions(int idAlumno)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                return (from p in db.Preguntas.Include("Clase").Include("Tema")
+                        join ra in db.RespuestaAlumnoes
+                        on p.IdPregunta equals ra.IdPregunta
+                        into agroup
+                        from bgroup in agroup.DefaultIfEmpty()
+                        where p.FechaDisponibleHasta > DateTime.Now
+                        && bgroup.IdRespuestaAlumno == null
+                        orderby p.Nro descending
+                        select p).ToList();
             }
         }
     }

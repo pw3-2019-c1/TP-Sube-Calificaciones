@@ -5,8 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
 using SubeCalificaciones.Services;
-using SubeCalificaciones.Services.AlumnoS;
-using SubeCalificaciones.Services.PreguntaS;
 
 namespace SubeCalificaciones.Controllers
 {
@@ -19,42 +17,23 @@ namespace SubeCalificaciones.Controllers
             { "Regular", 2 },
             { "Mal", 3 }
         };
+
         public bool CheckSession()
         {
-            return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
+            var y = Session["UserSession"];
+            var x = Session["UserType"];
+            return (Session["UserSession"] != null && Session["UserType"].ToString() == "Alumno") ? true : false;
         }
+
         public ActionResult Index()
         {
-            if (!CheckSession())
+            if (CheckSession())
             {
-                return RedirectToAction("Ingresar", "Home");
+                return RedirectToAction("Inicio", "Home");                
             }
             else
             {
-                int alID = Convert.ToInt32(Session["UserSession"]);
-                if (CheckSession())
-                {
-                    ViewBag.AlRankinList = Data.GetAlumnosRankin();
-                    
-                    var LastQuest = Data.RankinOld();
-                    ViewBag.LastQuestionsRanking = new List<List<RespuestaAlumno>>()
-                    {
-                        Data.RankinOldAlumnos(LastQuest[0].Nro),
-                        Data.RankinOldAlumnos(LastQuest[1].Nro)
-                    };
-                    ViewBag.LastQuestionsTitle = new List<string>()
-                    {
-                        LastQuest[0].Nro + " - " + LastQuest[0].Pregunta1,
-                        LastQuest[1].Nro + " - " + LastQuest[1].Pregunta1
-                    };
-
-                    ViewBag.NoRespList = PreguntaService.GetPreguntasAlumnoSinResponder(alID);
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("Ingresar", "Home");
-                }
+                return RedirectToAction("Ingresar", "Home");
             }
         }
 
@@ -128,22 +107,14 @@ namespace SubeCalificaciones.Controllers
                 }
             }
         }
-
         public ActionResult AcercaDe()
         {
             if (!CheckSession())
             {
                 return RedirectToAction("Ingresar", "Home");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            return RedirectToAction("Ingresar", "Home");
-        }
+
     }
 }

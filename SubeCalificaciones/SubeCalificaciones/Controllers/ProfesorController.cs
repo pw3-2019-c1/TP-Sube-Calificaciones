@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
-using SubeCalificaciones.Services.PreguntaS;
 using SubeCalificaciones.Services;
 
 namespace SubeCalificaciones.Controllers
@@ -13,19 +12,19 @@ namespace SubeCalificaciones.Controllers
     {
         public bool CheckSession()
         {
-            return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
+            return (Session["UserSession"] != null && Session["UserType"].ToString() == "Profesor") ? true : false;
         }
 
         // GET: Profesor
         public ActionResult Index()
         {
-            if (!CheckSession())
+            if (CheckSession())
             {
-                return RedirectToAction("Ingresar", "Home");
+                return RedirectToAction("Inicio", "Home");
             }
             else
             {
-                return View();
+                return RedirectToAction("Ingresar", "Home");               
             }
         }
 
@@ -138,23 +137,6 @@ namespace SubeCalificaciones.Controllers
             }
         }
 
-        public ActionResult AcercaDe()
-        {
-            if (!CheckSession())
-            {
-                return RedirectToAction("Ingresar", "Home");
-            }
-            else
-            {
-                return View();
-            }
-        }
-
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            return RedirectToAction("Ingresar", "Home");
-        }
 	    public ActionResult CrearPregunta()
         {
             ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
@@ -200,5 +182,15 @@ namespace SubeCalificaciones.Controllers
 
             return View("CrearPregunta");
         }
+
+        public ActionResult AcercaDe()
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            return View();
+        }
+
     }
 }

@@ -1,32 +1,32 @@
 ﻿@model SubeCalificaciones.Models.UsuarioAnonimo
 @{
     ViewBag.Title = "Ingresar";
-    Layout = "~/Views/Shared/Anonimo/_AnonimoLayout.cshtml";
+    Layout = "~/Views/Shared/_AnonimoLayout.cshtml";
 }
 
-    <form class="form-signin" action="/Home/Ingresar" method="post">
-        <h2 class="form-signin-heading">Ingresar</h2>
+<form class="form-signin" action="/Home/Ingresar" method="post">
+    <h2 class="form-signin-heading">Ingresar</h2>
 
-        @Html.TextBoxFor(ua => ua.InputEmail, new { @class = "form-control", placeholder = "Ingrese su email" })
-        <div class="err-email">
-            @Html.ValidationMessageFor(ua => ua.InputEmail, "", new { @class = "text-danger" })
-        </div>
+    @Html.TextBoxFor(ua => ua.InputEmail, new { @class = "form-control", placeholder = "Ingrese su email" })
+    <div class="err-email">
+        @Html.ValidationMessageFor(ua => ua.InputEmail, "", new { @class = "text-danger" })
+    </div>
 
-        @Html.PasswordFor(ua => ua.InputPassword, new { @class = "form-control", placeholder = "Ingrese su contraseña" })
-        <div class="err-pass">
-            @Html.ValidationMessageFor(ua => ua.InputPassword, "", new { @class = "text-danger" })
-        </div>
+    @Html.PasswordFor(ua => ua.InputPassword, new { @class = "form-control", placeholder = "Ingrese su contraseña" })
+    <div class="err-pass">
+        @Html.ValidationMessageFor(ua => ua.InputPassword, "", new { @class = "text-danger" })
+    </div>
 
-        <div class="checkbox">
-            <label>
-                @Html.CheckBoxFor(ua => ua.IsProfesor)
-                Soy Profesor
-            </label>
-        </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(ua => ua.IsProfesor)
+            Soy Profesor
+        </label>
+    </div>
 
-        <div class="err-email text-danger">
-            @Html.DisplayFor(ua => ua.LoggError)
-        </div>
+    <div class="err-email text-danger">
+        @Html.DisplayFor(ua => ua.LogError)
+    </div>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-    </form>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+</form>

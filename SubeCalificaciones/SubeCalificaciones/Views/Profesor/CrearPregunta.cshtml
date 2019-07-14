@@ -1,7 +1,7 @@
 ﻿@model SubeCalificaciones.Models.Pregunta
 @{
     ViewBag.Title = "CrearPregunta";
-    Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+    Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
 }
 <script type="text/javascript">
     $('.datepicker').datepicker();
@@ -62,8 +62,7 @@
         </div>
         <div class="row text-center">
             <input type="submit" class="btn btn-lg btn-primary" value="Crear">
-            <input type="reset" class="btn btn-secondary btn-lg" value="Cancelar">
-
+            <a href="/Profesor/AdminPreguntas" class="btn btn-secondary btn-lg" role="button">Cancelar</a>
         </div>
     </form>
 </div>

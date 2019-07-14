@@ -1,9 +1,8 @@
-﻿@model SubeCalificaciones.Pregunta
+﻿@model SubeCalificaciones.Models.Pregunta
 @{
     ViewBag.Title = "ModificarPregunta";
-    Layout = "~/Views/Shared/Profesor/_ProfesorLayout.cshtml";
+    Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
 }
-
 
 <div class="contenedor_formulario">
     <div class="titulo_formulario">
@@ -64,10 +63,7 @@
         </div>
         <div class="row text-center">
             <input type="submit" class="btn btn-lg btn-primary" value="Guardar">
-            <a href="/Profesor/AdminPreguntas">
-                <input type="button" value="Cancelar" class="btn btn-secondary btn-lg" />
-            </a>
-
+            <a href="/Profesor/AdminPreguntas" class="btn btn-secondary btn-lg" role="button">Volver</a>
         </div>
     </form>
 </div>

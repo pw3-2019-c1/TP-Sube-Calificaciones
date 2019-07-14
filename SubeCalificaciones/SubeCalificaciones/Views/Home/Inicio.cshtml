@@ -1,7 +1,17 @@
 ﻿@{
-    ViewBag.Title = "Alumno Home";
-    Layout = "~/Views/Shared/Alumno/_AlumnoLayout.cshtml";
+    ViewBag.Title = "Inicio";
+    if(Session["UserType"].ToString() == "Alumno")
+    {
+        Layout = "~/Views/Shared/_AlumnoLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
+    }    
 }
+
+<h2>Inicio</h2>
+
 <div class="container">
     <h2>¡Sube tus calificaciones!</h2>
     <p>Contestando preguntas referidas a lo visto en clase, suma puntos cruciales para subir tus calificaciones al final de la cursada.</p>
@@ -30,7 +40,7 @@
                                 <td>
                                     @AlRankinList.Nombre @AlRankinList.Apellido
                                     @{ if (AlRankinList.Nombre == ViewBag.alNombre
-                                                  && AlRankinList.Apellido == ViewBag.alApellido)
+                                                    && AlRankinList.Apellido == ViewBag.alApellido)
                                         {
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                         }
@@ -94,21 +104,24 @@
             </div>
         </div>
 
-        @if (ViewBag.NoRespList != null)
+        @if (Session["UserType"].ToString() == "Alumno")
         {
-            <div class="col-sm-6">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h4>Pregunta sin responder</h4>
-                    </div>
-                    <div class="list-group">
-                        @foreach (var notResp in ViewBag.NoRespList)
-                        {
-                            <a href="/Alumno/Preguntas/@notResp.IdPregunta" class="list-group-item">@notResp.Nro - @notResp.Pregunta1</a>
-                        }
+            if (ViewBag.NoRespList != null)
+            {
+                <div class="col-sm-6">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <h4>Pregunta sin responder</h4>
+                        </div>
+                        <div class="list-group">
+                            @foreach (var notResp in ViewBag.NoRespList)
+                            {
+                                <a href="/Alumno/ResponderPregunta/@notResp.IdPregunta" class="list-group-item">@notResp.Nro - @notResp.Pregunta1</a>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>

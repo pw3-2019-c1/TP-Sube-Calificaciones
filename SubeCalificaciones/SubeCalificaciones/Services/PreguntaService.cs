@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.Configuration;
 using SubeCalificaciones.Models;
 
-namespace SubeCalificaciones.Services.PreguntaS
+namespace SubeCalificaciones.Services
 {
     public class PreguntaService
     {
         private static TP_20191CEntities db;
 
-        public static List<Pregunta> GetPreguntas() {
+        public static List<Pregunta> GetPreguntas()
+        {
             using (db = new TP_20191CEntities())
             {
                 List<Pregunta> preguntasList = (from p in db.Preguntas.Include("Clase").Include("Tema") orderby p.Nro descending select p).ToList();
@@ -26,7 +27,8 @@ namespace SubeCalificaciones.Services.PreguntaS
                 var query = from p in db.Preguntas.Include("Clase").Include("Tema")
                             join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
                             on p.IdPregunta equals ra.IdPregunta
-                            into agroup from bgroup in (from ra in agroup where ra.IdAlumno == idAlumno select ra).DefaultIfEmpty()
+                            into agroup
+                            from bgroup in (from ra in agroup where ra.IdAlumno == idAlumno select ra).DefaultIfEmpty()
                             where p.FechaDisponibleDesde < DateTime.Now
                             orderby p.Nro descending
                             select new PreguntaAlumno
@@ -46,7 +48,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 Respuesta = bgroup.Respuesta
                             };
 
-                if(filtro >= 0)
+                if (filtro >= 0)
                 {
                     query = from p in db.Preguntas.Include("Clase").Include("Tema")
                             join ra in db.RespuestaAlumnoes.Include("ResultadoEvaluacion")
@@ -69,7 +71,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 MejorRespuesta = (ra.MejorRespuesta == null ? false : ra.MejorRespuesta),
                                 Respuesta = ra.Respuesta
                             };
-                    if(filtro == 0)
+                    if (filtro == 0)
                     {
                         query = query.Where(ra => ra.IdResultadoEvaluacion == null);
                     }
@@ -80,22 +82,6 @@ namespace SubeCalificaciones.Services.PreguntaS
                 }
                 List<PreguntaAlumno> preguntasList = query.ToList();
                 return preguntasList;
-            }
-        }
-
-        public static List<Pregunta> GetPreguntasAlumnoSinResponder(int idAlumno)
-        {
-            using (db = new TP_20191CEntities())
-            {
-                return (from p in db.Preguntas.Include("Clase").Include("Tema")
-                        join ra in db.RespuestaAlumnoes
-                        on p.IdPregunta equals ra.IdPregunta
-                        into agroup
-                        from bgroup in agroup.DefaultIfEmpty()
-                        where p.FechaDisponibleHasta > DateTime.Now
-                        && bgroup.IdRespuestaAlumno == null
-                        orderby p.Nro descending
-                        select p).ToList();
             }
         }
 
@@ -194,7 +180,7 @@ namespace SubeCalificaciones.Services.PreguntaS
                 preguntaMod.FechaDisponibleDesde = preguntaActualizada.FechaDisponibleDesde;
                 preguntaMod.FechaDisponibleHasta = preguntaActualizada.FechaDisponibleHasta;
                 preguntaMod.Pregunta1 = preguntaActualizada.Pregunta1;
-                preguntaMod.FechaHoraModificacion = DateTime.Now; 
+                preguntaMod.FechaHoraModificacion = DateTime.Now;
                 db.SaveChanges();
             }
         }
@@ -204,7 +190,8 @@ namespace SubeCalificaciones.Services.PreguntaS
             using (db = new TP_20191CEntities())
             {
                 var query = from r in db.RespuestaAlumnoes.Include("Alumno").Include("ResultadoEvaluacion") where r.IdPregunta == idPregunta select r;
-                if (filtro > 0) {
+                if (filtro > 0)
+                {
                     query = query.Where(r => r.ResultadoEvaluacion.IdResultadoEvaluacion == filtro);
                 }
                 else if (filtro == 0)
@@ -290,13 +277,14 @@ namespace SubeCalificaciones.Services.PreguntaS
             long puntajeMinimo = puntajeMax / cupo;
             long puntajeRespuesta = puntajeMax - (puntajeMinimo * respuesta.RespuestasCorrectasHastaElMomento.Value);
 
-            if(respuesta.IdResultadoEvaluacion == 2) // Regular
+            if (respuesta.IdResultadoEvaluacion == 2) // Regular
             {
                 puntajeMinimo /= 2;
                 puntajeRespuesta /= 2;
             }
 
-            if (puntajeRespuesta <= puntajeMinimo) {
+            if (puntajeRespuesta <= puntajeMinimo)
+            {
                 return puntajeMinimo;
             }
 

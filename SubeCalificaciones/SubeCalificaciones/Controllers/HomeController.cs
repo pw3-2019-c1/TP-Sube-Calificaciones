@@ -4,25 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SubeCalificaciones.Models;
-using System.Security.Cryptography;
-using System.Text;
-using SubeCalificaciones.Services.Home;
+using SubeCalificaciones.Services;
 
 namespace SubeCalificaciones.Controllers
 {
     public class HomeController : Controller
     {
-        //public static string GetSHA1(string str)
-        //{
-        //    SHA1 sha1 = SHA1.Create();
-        //    ASCIIEncoding encoding = new ASCIIEncoding();
-        //    StringBuilder sb = new StringBuilder();
-        //    byte[] stream = sha1.ComputeHash(encoding.GetBytes(str));
-        //    for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
-        //    return sb.ToString();
-        //}
+        public bool CheckSession()
+        {
+            return (!string.IsNullOrEmpty(Session["UserSession"] as string)) ? true : false;
+        }
+
         public ActionResult Ingresar()
         {
+            if (CheckSession())
+            {
+                return RedirectToAction("Inicio", "Home");
+            }
             return View();
         }
 
@@ -36,37 +34,62 @@ namespace SubeCalificaciones.Controllers
                     Profesor profesorDetails = CheckUserToLog.GetProfesor(ua);
                     if (profesorDetails == null)
                     {
-                        ua.LoggError = "Datos invalidos, intente nuevamente.";
+                        ua.LogError = "Datos invalidos, intente nuevamente.";
                     }
                     else
                     {
-                        //string UserToHash = (profesorDetails.IdProfesor).ToString();
-                        //string UserHashed = GetSHA1(UserToHash);
-                        //Session["UserSession"] = UserHashed;
                         Session["UserSession"] = (profesorDetails.IdProfesor).ToString();
                         Session["UserName"] = profesorDetails.Nombre + " " + profesorDetails.Apellido;
-                        return Redirect("/Profesor");
+                        Session["UserType"] = "Profesor";
+                        return Redirect("/Home/Inicio");
                     }
                 } else
                 {
                     Alumno alumnoDetails = CheckUserToLog.GetAlumno(ua);
                     if (alumnoDetails == null)
                     {
-                        ua.LoggError = "Datos invalidos, intente nuevamente.";
+                        ua.LogError = "Datos invalidos, intente nuevamente.";
                     }
                     else
                     {
-                        //string UserToHash = (alumnoDetails.IdAlumno).ToString();
-                        //string UserHashed = GetSHA1(UserToHash);
-                        //Session["UserSession"] = UserHashed;
                         Session["UserSession"] = (alumnoDetails.IdAlumno).ToString();
                         Session["UserName"] = alumnoDetails.Nombre + " " + alumnoDetails.Apellido;
-                        return Redirect("/Alumno");
+                        Session["UserType"] = "Alumno";
+                        return Redirect("/Home/Inicio");
                     }
                 }
             }
             return View(ua);
+        }
 
+        public ActionResult Inicio()
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+
+            ViewBag.AlRankinList = HomeService.GetAlumnosRanking();
+            var LastQuest = HomeService.GetLastQuestions();
+            ViewBag.LastQuestionsRanking = new List<List<RespuestaAlumno>>()
+                {
+                    HomeService.GetQuestionRanking(LastQuest[0].Nro),
+                    HomeService.GetQuestionRanking(LastQuest[1].Nro)
+                };
+            ViewBag.LastQuestionsTitle = new List<string>()
+                {
+                    LastQuest[0].Nro + " - " + LastQuest[0].Pregunta1,
+                    LastQuest[1].Nro + " - " + LastQuest[1].Pregunta1
+                };
+
+            ViewBag.NoRespList = HomeService.GetUnansweredQuestions(Convert.ToInt32(Session["UserSession"]));
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Ingresar", "Home");
         }
 
     }
