@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
 using SubeCalificaciones.Models;
@@ -156,6 +158,45 @@ namespace SubeCalificaciones.Services
                 var final = ra;
                 db.RespuestaAlumnoes.Add(ra);
                 db.SaveChanges();
+                SendRespuestaMail(ra);
+            }
+        }
+
+        public static void SendRespuestaMail(RespuestaAlumno ra)
+        {
+            var message = new MailMessage();
+            var al = (from a in db.Alumnoes where a.IdAlumno == ra.IdAlumno select a).FirstOrDefault();
+            message.From = new MailAddress(al.Email);
+            var pro = (from p in db.Profesors select p.Email).ToList();
+            foreach (var profesorMail in pro)
+            {
+                message.To.Add(new MailAddress(profesorMail));
+            }
+            message.To.Add(new MailAddress("johnytester88@gmail.com"));
+            var emailSubject = "Respuesta a Pregunta " + (ra.IdPregunta).ToString() + "-" + (ra.Orden).ToString() + "-" + al.Apellido;
+            message.Subject = emailSubject;
+            var pr = (from p in db.Preguntas where p.IdPregunta == ra.IdPregunta select p).FirstOrDefault();
+            var urlActual = (HttpContext.Current.Request.Url).ToString();
+            var urlToMail = urlActual.Replace( ("/Alumno/ResponderPregunta/" + (ra.IdPregunta).ToString() )
+                                             , ("/Profesor/EvaluarRespuestas?idPregunta=" + (ra.IdPregunta).ToString() + "&filtro=-1") );
+            message.Body = "Pregunta: " + pr.Pregunta1
+                         + "<br>Alumno: " + al.Nombre + al.Apellido
+                         + "<br>Orden: " + (ra.Orden).ToString()
+                         + "<br>Respuesta: " + ra.Respuesta
+                         + "<br>Evaluar: <a href=\"" + urlToMail + "\">Link a respuesta</a>";
+            message.IsBodyHtml = true;
+            using (var smtp1 = new SmtpClient())
+            {
+                var credential1 = new NetworkCredential
+                {
+                    UserName = "johnytester88@gmail.com",
+                    Password = "asp.netmvc"
+                };
+                smtp1.Credentials = credential1;
+                smtp1.Host = "smtp.gmail.com";
+                smtp1.Port = 587;
+                smtp1.EnableSsl = true;
+                smtp1.Send(message);
             }
         }
 

@@ -15,7 +15,7 @@ namespace SubeCalificaciones.Services
         public static List<Clase> ListarClase()
         {
             List<Clase> clases = (from c in db.Clases select c).ToList();
-            return clases;                
+            return clases;
         }
 
         public static void SendEmail(Email email)
