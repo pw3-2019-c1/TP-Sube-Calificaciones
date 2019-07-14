@@ -15,7 +15,7 @@
         <p>@ViewBag.PreguntaAResponder.Nro. @ViewBag.PreguntaAResponder.Pregunta1</p>
         <p>Se puede responder hasta: @ViewBag.PreguntaAResponder.FechaDisponibleHasta</p>
         <form action="/Alumno/ResponderPregunta/@ViewBag.PreguntaAResponder.IdPregunta" method="post">
-            <textarea id="textarea" class="form-control" rows="5" placeholder="Ingrese su respuesta aqui..." name="Respuesta"></textarea>
+            <textarea id="textarea" class="form-control" rows="5" placeholder="Ingrese su respuesta aqui..." name="Respuesta" required="required"></textarea>
             @Html.ValidationMessageFor(rp => rp.Respuesta, "", new { @class = "text-danger" })
             <br /><br />
             <input type="submit" value="Enviar Respuesta" class="btn btn-success" />
