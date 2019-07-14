@@ -139,6 +139,11 @@ namespace SubeCalificaciones.Controllers
 
 	    public ActionResult CrearPregunta()
         {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+
             ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
             List<Clase> ListaClase = ClaseService.ListarClase();
             ViewBag.clases = ListaClase;
@@ -155,39 +160,36 @@ namespace SubeCalificaciones.Controllers
             {
                 return RedirectToAction("Ingresar", "Home");
             }
-            else
+            //validar que  dos clases tengan no el mismo número de pregunta
+            var PreguntaExistente = PreguntaService.ValidarExistencia(pregunta);
+            var fechaValida = PreguntaService.ValidarFechaHasta(pregunta);
+            if (ModelState.IsValid)
             {
-                //validar que  dos clases tengan no el mismo número de pregunta
-                var PreguntaExistente = PreguntaService.ValidarExistencia(pregunta);
-                var fechaValida = PreguntaService.ValidarFechaHasta(pregunta);
-                if (ModelState.IsValid)
+                if (PreguntaExistente > 0)
                 {
-                    if (PreguntaExistente > 0)
-                    {
-                        ModelState.AddModelError("", "Ya existe una pregunta con este número de Pregunta");
-                    }
-                    //la fecha hasta es menor a la fecha desde
-                    if (fechaValida > 0)
-                    {
-                        ModelState.AddModelError("", "El campo Hasta debe ser mayor al campo Desde");
-                    }
+                    ModelState.AddModelError("", "Ya existe una pregunta con este número de Pregunta");
                 }
-                if (ModelState.IsValid)
+                //la fecha hasta es menor a la fecha desde
+                if (fechaValida > 0)
                 {
-                    pregunta.FechaHoraCreacion = DateTime.Now;
-                    PreguntaService.CrearPregunta(pregunta);
-                    return RedirectToAction("AdminPreguntas", "Profesor");
+                    ModelState.AddModelError("", "El campo Hasta debe ser mayor al campo Desde");
                 }
-
-                ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
-                List<Clase> ListaClase = ClaseService.ListarClase();
-                ViewBag.clases = ListaClase;
-
-                List<Tema> ListaTema = TemaService.ListarTema();
-                ViewBag.temas = ListaTema;
-
-                return View("CrearPregunta");
             }
+            if (ModelState.IsValid)
+            {
+                pregunta.FechaHoraCreacion = DateTime.Now;
+                PreguntaService.CrearPregunta(pregunta);
+                return RedirectToAction("AdminPreguntas", "Profesor");
+            }
+
+            ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
+            List<Clase> ListaClase = ClaseService.ListarClase();
+            ViewBag.clases = ListaClase;
+
+            List<Tema> ListaTema = TemaService.ListarTema();
+            ViewBag.temas = ListaTema;
+
+            return View("CrearPregunta");
                 
         }
 
