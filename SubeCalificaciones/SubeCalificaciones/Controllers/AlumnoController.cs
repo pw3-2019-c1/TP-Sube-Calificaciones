@@ -25,16 +25,15 @@ namespace SubeCalificaciones.Controllers
         }
         public ActionResult Index()
         {
-            //if (!CheckSession())
-            //{
-            //    return RedirectToAction("Ingresar", "Home");
-            //}
-            //else
-            //{
-            //int alID = Convert.ToInt32(Session["UserSession"]);
-            int alID = 1;
-                //if (CheckSession())
-                //{
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                int alID = Convert.ToInt32(Session["UserSession"]);
+                if (CheckSession())
+                {
                     ViewBag.AlRankinList = Data.GetAlumnosRankin();
                     
                     var LastQuest = Data.RankinOld();
@@ -49,91 +48,85 @@ namespace SubeCalificaciones.Controllers
                         LastQuest[1].Nro + " - " + LastQuest[1].Pregunta1
                     };
 
-                    //Questions not responded by Alumno
                     ViewBag.NoRespList = PreguntaService.GetPreguntasAlumnoSinResponder(alID);
-
-
-            return View();
-                //} else
-                //{
-                //    return RedirectToAction("Ingresar", "Home");
-                //}
-            //}
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Ingresar", "Home");
+                }
+            }
         }
 
         public ActionResult Preguntas(string filtro)
         {
-            //if (!CheckSession())
-            //{
-            //    return RedirectToAction("Ingresar", "Home");
-            //}
-            //else
-            //{
-            //int idAlumno = Convert.ToInt32(Session["UserSession"]);
-            int idAlumno = 1;
-            List <PreguntaAlumno> preguntas = PreguntaService.GetPreguntasAlumno(FiltrosPreguntas[filtro], idAlumno);
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                int idAlumno = Convert.ToInt32(Session["UserSession"]);
+                List <PreguntaAlumno> preguntas = PreguntaService.GetPreguntasAlumno(FiltrosPreguntas[filtro], idAlumno);
            
             return View(preguntas);
-            //}
+            }
         }
         public ActionResult VerRespuesta(int? idPregunta)
         {
-            //if (!CheckSession())
-            //{
-            //    return RedirectToAction("Ingresar", "Home");
-            //}
-            //else
-            //{
-            //int idAlumno = Convert.ToInt32(Session["UserSession"]);
-            if (idPregunta == null)
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                int idAlumno = Convert.ToInt32(Session["UserSession"]);
+                if (idPregunta == null)
             {
                 return RedirectToAction("Preguntas");
             }
-
-            int idAlumno = 1;
                 PreguntaAlumno respuesta = PreguntaService.GetRespuesta(idPregunta, idAlumno);
                 return View(respuesta);
-            //}
+            }
         }
         public ActionResult ResponderPregunta(int? idPregunta)
         {
-            //if (!CheckSession())
-            //{
-            //    return RedirectToAction("Ingresar", "Home");
-            //}
-            //else
-            //{
-            if (idPregunta == null)
+            if (!CheckSession())
             {
-                return RedirectToAction("Preguntas");
+                return RedirectToAction("Ingresar", "Home");
             }
+            else
+            {
+                if (idPregunta == null)
+                {
+                    return RedirectToAction("Preguntas");
+                }
 
-            //Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
-            ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
-            return View();
-            //}
+                ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
+                return View();
+            }
         }
         [HttpPost]
         public ActionResult ResponderPregunta(int? idPregunta, RespuestaAlumno ra)
         {
-            //if (!CheckSession())
-            //{
-            //    return RedirectToAction("Ingresar", "Home");
-            //}
-            //else
-            //{
-            if (ModelState.IsValid)
+            if (!CheckSession())
             {
-                int idAlumno = 2;
-                PreguntaService.AddRespuesta(ra, idPregunta, idAlumno);
-                return RedirectToAction("Preguntas");
+                return RedirectToAction("Ingresar", "Home");
             }
             else
             {
-                ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
-                return View(ra);
+                if (ModelState.IsValid)
+                {
+                    int idAlumno = 2;
+                    PreguntaService.AddRespuesta(ra, idPregunta, idAlumno);
+                    return RedirectToAction("Preguntas");
+                }
+                else
+                {
+                    ViewBag.PreguntaAResponder = PreguntaService.GetPregunta(idPregunta);
+                    return View(ra);
+                }
             }
-            //}
         }
 
         public ActionResult AcercaDe()

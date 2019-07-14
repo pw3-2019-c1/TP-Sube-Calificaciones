@@ -24,42 +24,37 @@
 {
 <div class="panel panel-default">
     <div class="panel-heading">
-        @pregunta.Clase.Nombre - @pregunta.Tema.Nombre Hasta @pregunta.FechaDisponibleHasta
-    </div>
+        @pregunta.Clase.Nombre - @pregunta.Tema.Nombre
+        @(((pregunta.IdResultadoEvaluacion == null || pregunta.IdResultadoEvaluacion == 0) && pregunta.Respuesta == null && pregunta.CurrentDate <= Convert.ToDateTime(pregunta.FechaDisponibleHasta)) ? "Hasta " + @pregunta.FechaDisponibleHasta : "")
+        </div>
     <div class="panel-body">
-        @pregunta.Nro. @pregunta.Pregunta1
-        @if (pregunta.IdResultadoEvaluacion == null)
-        {
-            if (pregunta.Respuesta != null)
+        <p>
+            @pregunta.Nro. @pregunta.Pregunta1
+            @if (pregunta.IdResultadoEvaluacion == null || pregunta.IdResultadoEvaluacion == 0)
             {
-                <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a>
-            }
-            else
-            {
-                if (pregunta.CurrentDate > Convert.ToDateTime(pregunta.FechaDisponibleHasta))
+                if (pregunta.Respuesta != null)
                 {
-                    <p>Plazo vencido @pregunta.FechaDisponibleDesde - @pregunta.FechaDisponibleHasta</p>
+                    <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a> <strong>Corrección Pendiente</strong>
                 }
                 else
                 {
-                    <a href="/Alumno/ResponderPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Responder</a>
+                    if (pregunta.CurrentDate > Convert.ToDateTime(pregunta.FechaDisponibleHasta))
+                    {
+                        <span>Plazo vencido @pregunta.FechaDisponibleDesde - @pregunta.FechaDisponibleHasta</span>
+                    }
+                    else
+                    {
+                        <a href="/Alumno/ResponderPregunta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Responder</a>
+                    }
                 }
             }
-        }
-        else if (pregunta.IdResultadoEvaluacion >= 0)
-        {
-            <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a>
-
-            if (pregunta.IdResultadoEvaluacion == 0)
+            else if (pregunta.IdResultadoEvaluacion > 0)
             {
-                <p>Corrección Pendiente</p>
+            
+                <a href="/Alumno/VerRespuesta/@pregunta.IdPregunta" class="btn btn-xs btn-link">Ver</a> <span class="pregunta-@pregunta.ResultadoEvaluacion.Resultado.ToLower()">@pregunta.ResultadoEvaluacion.Resultado @(pregunta.ResultadoEvaluacion.Resultado != "Mal" ? "| " + pregunta.Orden + "° | " + pregunta.Puntos : "") @(pregunta.MejorRespuesta ? "| ¡Mejor respuesta!" : "")</span>
+            
             }
-            else
-            {
-                <p class="pregunta-@pregunta.ResultadoEvaluacion.Resultado.ToLower()">@pregunta.ResultadoEvaluacion.Resultado @(pregunta.ResultadoEvaluacion.Resultado != "Mal" ? "| " + pregunta.Orden + "° | " + pregunta.Puntos : "") @(pregunta.MejorRespuesta ? "| ¡Mejor respuesta!" : "")</p>
-            }
-        }
-
+        </p>
     </div>
 </div>
 }

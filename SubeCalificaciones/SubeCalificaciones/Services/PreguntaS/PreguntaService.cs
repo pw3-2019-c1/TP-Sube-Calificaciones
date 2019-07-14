@@ -66,7 +66,8 @@ namespace SubeCalificaciones.Services.PreguntaS
                                 ResultadoEvaluacion = ra.ResultadoEvaluacion,
                                 Orden = ra.Orden,
                                 Puntos = ra.Puntos,
-                                MejorRespuesta = (ra.MejorRespuesta == null ? false : ra.MejorRespuesta)
+                                MejorRespuesta = (ra.MejorRespuesta == null ? false : ra.MejorRespuesta),
+                                Respuesta = ra.Respuesta
                             };
                     if(filtro == 0)
                     {
