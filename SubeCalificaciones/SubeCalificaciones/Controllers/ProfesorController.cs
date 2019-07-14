@@ -144,7 +144,7 @@ namespace SubeCalificaciones.Controllers
                 return RedirectToAction("Ingresar", "Home");
             }
 
-            ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
+            ViewBag.nro = PreguntaService.GetLastPregunta().Nro + 1;
             List<Clase> ListaClase = ClaseService.ListarClase();
             ViewBag.clases = ListaClase;
 
@@ -182,7 +182,7 @@ namespace SubeCalificaciones.Controllers
                 return RedirectToAction("AdminPreguntas", "Profesor");
             }
 
-            ViewBag.nro = PreguntaService.GetLastPregunta().IdPregunta + 1;
+            ViewBag.nro = PreguntaService.GetLastPregunta().Nro + 1;
             List<Clase> ListaClase = ClaseService.ListarClase();
             ViewBag.clases = ListaClase;
 
