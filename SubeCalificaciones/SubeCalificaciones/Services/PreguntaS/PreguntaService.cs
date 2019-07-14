@@ -189,8 +189,14 @@ namespace SubeCalificaciones.Services.PreguntaS
         {
             using (db = new TP_20191CEntities())
             {
-                Pregunta preguntaOld = (from p in db.Preguntas where p.IdPregunta == preguntaActualizada.IdPregunta select p).FirstOrDefault();
-                preguntaOld = preguntaActualizada; // Probar si esto funciona o si hay que pasar uno por uno.
+                Pregunta preguntaMod = (from p in db.Preguntas where p.IdPregunta == preguntaActualizada.IdPregunta select p).FirstOrDefault();
+                preguntaMod.Nro = preguntaActualizada.Nro;
+                preguntaMod.IdClase = preguntaActualizada.IdClase;
+                preguntaMod.IdTema = preguntaActualizada.IdTema;
+                preguntaMod.FechaDisponibleDesde = preguntaActualizada.FechaDisponibleDesde;
+                preguntaMod.FechaDisponibleHasta = preguntaActualizada.FechaDisponibleHasta;
+                preguntaMod.Pregunta1 = preguntaActualizada.Pregunta1;
+                preguntaMod.FechaHoraModificacion = DateTime.Now; 
                 db.SaveChanges();
             }
         }
