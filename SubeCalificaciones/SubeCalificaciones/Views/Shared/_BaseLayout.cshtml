@@ -4,12 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - ¡Sube tus calificaciones!</title>
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/Site.css")
+    @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("AnonimoStyles", required: false)
-    @RenderSection("AlumnoStyles", required: false)
-    @RenderSection("ProfesorStyles", required: false)
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <div class="container">

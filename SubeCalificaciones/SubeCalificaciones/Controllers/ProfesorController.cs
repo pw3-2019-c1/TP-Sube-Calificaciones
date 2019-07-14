@@ -192,5 +192,11 @@ namespace SubeCalificaciones.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Ingresar", "Home");
+        }
+
     }
 }
