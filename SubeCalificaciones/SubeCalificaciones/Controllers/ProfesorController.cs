@@ -50,11 +50,35 @@ namespace SubeCalificaciones.Controllers
             }
             else
             {
+                List<Clase> ListaClase = ClaseService.ListarClase();
+                ViewBag.clases = ListaClase;
+                List<Tema> ListaTema = TemaService.ListarTema();
+                ViewBag.temas = ListaTema;
                 Pregunta pregunta = PreguntaService.GetPregunta(idPregunta);
+                ViewBag.desde = pregunta.FechaDisponibleDesde;
+                ViewBag.hasta = pregunta.FechaDisponibleHasta;
                 return View(pregunta);
             }
         }
+        [HttpPost]
+        public ActionResult ModificarPregunta(Pregunta p)
+        {
+            if (!CheckSession())
+            {
+                return RedirectToAction("Ingresar", "Home");
+            }
+            else
+            {
+                List<Clase> ListaClase = ClaseService.ListarClase();
+                ViewBag.clases = ListaClase;
 
+                List<Tema> ListaTema = TemaService.ListarTema();
+                ViewBag.temas = ListaTema;
+                if(p!=null)
+                    PreguntaService.UpdatePregunta(p);
+                return RedirectToAction("AdminPreguntas", "Profesor");
+            }
+        }
         public ActionResult EliminarPregunta(int idPregunta)
         {
             if (!CheckSession())
