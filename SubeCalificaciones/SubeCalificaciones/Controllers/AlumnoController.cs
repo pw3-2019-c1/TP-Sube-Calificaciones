@@ -35,31 +35,25 @@ namespace SubeCalificaciones.Controllers
             int alID = 1;
                 //if (CheckSession())
                 //{
-                    //Top 5 Rank
                     ViewBag.AlRankinList = Data.GetAlumnosRankin();
-                    //Old Rank
+                    
                     var LastQuest = Data.RankinOld();
-                    //Old Rank questions 1
-                    ViewBag.FirstLQTitle = LastQuest[0].Pregunta1;
-                    ViewBag.FirstLQNr = LastQuest[0].Nro;
-                    ViewBag.FirstLQAlumnos = Data.RankinOldAlumnos(LastQuest[0].Nro);
-                    //Old Rank questions 2
-                    ViewBag.SecondLQTitle = LastQuest[1].Pregunta1;
-                    ViewBag.SecondLQNr = LastQuest[1].Nro;
-                    List<Pregunta> LastQuestions = new List<Pregunta> {
+                    ViewBag.LastQuestionsRanking = new List<List<RespuestaAlumno>>()
+                    {
                         Data.RankinOldAlumnos(LastQuest[0].Nro),
                         Data.RankinOldAlumnos(LastQuest[1].Nro)
                     };
-                    LastQuestions[0] =
-                    LastQuestions[1] = 
-                    ViewBag.LastQuestions = LastQuestions;
+                    ViewBag.LastQuestionsTitle = new List<string>()
+                    {
+                        LastQuest[0].Nro + " - " + LastQuest[0].Pregunta1,
+                        LastQuest[1].Nro + " - " + LastQuest[1].Pregunta1
+                    };
 
-                    ViewBag.SecondLQAlumnos = Data.RankinOldAlumnos(LastQuest[1].Nro);
                     //Questions not responded by Alumno
-                    ViewBag.NoRespList = Data.NotResponseQuest(alID);
-                    PreguntaService.GetPreguntasAlumnoSinResponder(alID);
+                    ViewBag.NoRespList = PreguntaService.GetPreguntasAlumnoSinResponder(alID);
 
-                    return View();
+
+            return View();
                 //} else
                 //{
                 //    return RedirectToAction("Ingresar", "Home");

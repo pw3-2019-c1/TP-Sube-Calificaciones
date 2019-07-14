@@ -61,22 +61,14 @@ namespace SubeCalificaciones.Services.AlumnoS
                 //        }).Take(2).ToList();
             }
         }
-        public static List<LastRankAlumno> RankinOldAlumnos(int idLastRank)
+        public static List<RespuestaAlumno> RankinOldAlumnos(int idPregunta)
         {
             using (db = new TP_20191CEntities())
             {
-                return (from a in db.Alumnoes
-                        join r in db.RespuestaAlumnoes
-                        on a.IdAlumno equals r.IdAlumno
-                        orderby r.Puntos descending, r.MejorRespuesta descending
-                        where r.IdPregunta == idLastRank
-                        select new LastRankAlumno()
-                        {
-                            Nombre = a.Nombre,
-                            Apellido = a.Apellido,
-                            Puntos = r.Puntos,
-                            MejorRespuesta = r.MejorRespuesta
-                        }).Take(10).ToList();
+                return (from ra in db.RespuestaAlumnoes.Include("Alumno")
+                        orderby ra.Puntos descending, ra.MejorRespuesta descending
+                        where ra.IdPregunta == idPregunta
+                        select ra).Take(10).ToList();
                 //return (from a in db.Alumnoes
                 //        join r in db.RespuestaAlumnoes
                 //        on a.IdAlumno equals r.IdAlumno
