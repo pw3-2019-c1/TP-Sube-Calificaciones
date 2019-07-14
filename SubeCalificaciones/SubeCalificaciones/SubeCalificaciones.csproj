@@ -140,7 +140,6 @@
     <Compile Include="Models\Clase.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\Pregunta.cs">
       <DependentUpon>TDataModel.tt</DependentUpon>
     </Compile>

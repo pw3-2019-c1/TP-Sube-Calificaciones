@@ -99,8 +99,6 @@ namespace SubeCalificaciones.Services.PreguntaS
             }
         }
 
-
-
         public static Pregunta GetPregunta(int? idPregunta)
         {
             using (db = new TP_20191CEntities())
