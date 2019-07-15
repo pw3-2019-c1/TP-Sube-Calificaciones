@@ -3,6 +3,12 @@
     ViewBag.Title = "ModificarPregunta";
     Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
 }
+<<<<<<< HEAD
+=======
+<script type="text/javascript">
+    //$('.datepicker').datepicker();
+</script>
+>>>>>>> c286ab0541c2c52d3f4c40a648e9ce3de3f87828
 <div class="contenedor_formulario">
     <div class="titulo_formulario">
         <h2>Modificar Pregunta</h2>
@@ -42,13 +48,16 @@
             <!--Fecha de Inicio-->
             <div class="form-group col-md-6">
                 <label>Disponible Desde:</label>
+
                 @Html.TextBoxFor(model => model.FechaDisponibleDesde, new { @type = "datetime", @class = "form-control", @Value = Model.FechaDisponibleDesde })
+
                 @Html.ValidationMessageFor(m => m.FechaDisponibleDesde, "", new { @class = "text-danger" })
             </div>
             <!--Fecha de fin-->
             <div class="form-group col-md-6">
                 <label>Hasta:</label>
                 @Html.TextBoxFor(m => m.FechaDisponibleHasta, new { @type = "datetime", @class = "form-control", @Value = Model.FechaDisponibleHasta })
+
                 @Html.ValidationMessageFor(m => m.FechaDisponibleHasta, "", new { @class = "text-danger" })
             </div>
         </div>
