@@ -3,13 +3,17 @@
     ViewBag.Title = "ModificarPregunta";
     Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
 }
+<<<<<<< HEAD
+=======
 <script type="text/javascript">
-    $('.datepicker').datepicker();
+    //$('.datepicker').datepicker();
 </script>
+>>>>>>> c286ab0541c2c52d3f4c40a648e9ce3de3f87828
 <div class="contenedor_formulario">
     <div class="titulo_formulario">
         <h2>Modificar Pregunta</h2>
     </div>
+    @Html.Raw(@ViewBag.msjTieneRespuesta)
     <form role="form" method="post" action="ModificarPregunta" class="contenedor_formulario">
 
         @Html.ValidationSummary(true, " ", new { @class = "text-danger" })
@@ -44,13 +48,16 @@
             <!--Fecha de Inicio-->
             <div class="form-group col-md-6">
                 <label>Disponible Desde:</label>
-                @Html.TextBoxFor(model => model.FechaDisponibleDesde, new { @type = "date", @class = "form-control", value = Model.FechaDisponibleDesde })
+
+                @Html.TextBoxFor(model => model.FechaDisponibleDesde, new { @type = "datetime", @class = "form-control", @Value = Model.FechaDisponibleDesde })
+
                 @Html.ValidationMessageFor(m => m.FechaDisponibleDesde, "", new { @class = "text-danger" })
             </div>
             <!--Fecha de fin-->
             <div class="form-group col-md-6">
                 <label>Hasta:</label>
-                @Html.TextBoxFor(m => m.FechaDisponibleHasta, new { @type = "date", @class = "form-control", value = Model.FechaDisponibleHasta })
+                @Html.TextBoxFor(m => m.FechaDisponibleHasta, new { @type = "datetime", @class = "form-control", @Value = Model.FechaDisponibleHasta })
+
                 @Html.ValidationMessageFor(m => m.FechaDisponibleHasta, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,7 +71,9 @@
         </div>
         <div class="row text-center">
             <input type="submit" class="btn btn-lg btn-primary" value="Guardar">
-            <a href="/Profesor/AdminPreguntas" class="btn btn-secondary btn-lg" role="button">Volver</a>
+            <a href="/Profesor/AdminPreguntas">
+                <input type="button" value="Cancelar" class="btn btn-secondary btn-lg" />
+            </a>
         </div>
     </form>
 </div>

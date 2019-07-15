@@ -444,5 +444,18 @@ namespace SubeCalificaciones.Services
                 db.SaveChanges();
             }
         }
+
+        public static Boolean TieneRespuestas(int idpregunta)
+        {
+            using (db = new TP_20191CEntities())
+            {
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Profesor").Include("ResultadoEvaluacion") where r.IdPregunta == idpregunta select r).FirstOrDefault();
+                if (respuesta != null)
+                {
+                    return true;
+                }
+                else return false;
+            }
+        }
     }
 }

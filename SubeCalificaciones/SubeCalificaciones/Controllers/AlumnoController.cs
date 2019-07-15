@@ -96,7 +96,7 @@ namespace SubeCalificaciones.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    int idAlumno = 2;
+                    int idAlumno = Convert.ToInt32(Session["UserSession"]);
                     PreguntaService.AddRespuesta(ra, idPregunta, idAlumno);
                     return RedirectToAction("Preguntas");
                 }
