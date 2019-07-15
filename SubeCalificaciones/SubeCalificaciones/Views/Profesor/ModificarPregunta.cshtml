@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_ProfesorLayout.cshtml";
 }
 <script type="text/javascript">
-    $('.datepicker').datepicker();
+    //$('.datepicker').datepicker();
 </script>
 <div class="contenedor_formulario">
     <div class="titulo_formulario">
@@ -44,13 +44,13 @@
             <!--Fecha de Inicio-->
             <div class="form-group col-md-6">
                 <label>Disponible Desde:</label>
-                @Html.TextBoxFor(model => model.FechaDisponibleDesde, new { @type = "date", @class = "form-control" })
+                @Html.TextBoxFor(model => model.FechaDisponibleDesde, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.FechaDisponibleDesde, "", new { @class = "text-danger" })
             </div>
             <!--Fecha de fin-->
             <div class="form-group col-md-6">
                 <label>Hasta:</label>
-                @Html.TextBoxFor(m => m.FechaDisponibleHasta, new { @type = "date", @class = "form-control" })
+                @Html.TextBoxFor(m => m.FechaDisponibleHasta, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.FechaDisponibleHasta, "", new { @class = "text-danger" })
             </div>
         </div>
