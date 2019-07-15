@@ -131,7 +131,8 @@ namespace SubeCalificaciones.Controllers
             }
             else
             {
-                PreguntaService.ElegirMejorRespuesta(idRespuesta);
+                int idProfesor = Convert.ToInt32(Session["UserSession"]);
+                PreguntaService.ElegirMejorRespuesta(idRespuesta, idProfesor);
                 RespuestaAlumno resp = PreguntaService.GetRespuesta(idRespuesta);
                 return RedirectToAction("EvaluarRespuestas", new { idPregunta = resp.IdPregunta, filtro = -1 });
             }

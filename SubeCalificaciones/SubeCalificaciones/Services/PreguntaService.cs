@@ -255,13 +255,13 @@ namespace SubeCalificaciones.Services
             }
         }
 
-        public static void ElegirMejorRespuesta(int idRespuesta)
+        public static void ElegirMejorRespuesta(int idRespuesta, int idProfesor)
         {
             using (db = new TP_20191CEntities())
             {
                 RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Alumno").Include("Pregunta") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
                 respuesta.MejorRespuesta = true;
-                NotifyAlMejorRsta(respuesta);
+                NotifyAlMejorRsta(respuesta, idProfesor);
 
                 long puntos = CalcularPuntosMejorRespuesta(respuesta);
                 respuesta.Puntos = puntos;
@@ -273,11 +273,12 @@ namespace SubeCalificaciones.Services
             }
         }
 
-        public static void NotifyAlMejorRsta(RespuestaAlumno rstaAl)
+        public static void NotifyAlMejorRsta(RespuestaAlumno rstaAl, int idProfesor)
         {
             var message = new MailMessage();
             var al = (from a in db.Alumnoes where a.IdAlumno == rstaAl.IdAlumno select a).FirstOrDefault();
-            message.From = new MailAddress(al.Email);
+            var pro = (from p in db.Profesors where p.IdProfesor == idProfesor select p).FirstOrDefault();
+            message.From = new MailAddress(pro.Email);
             message.To.Add(new MailAddress("johnytester88@gmail.com"));
             message.Subject = "Su Respuesta ha sido marcada como la mejor, Felicitaciones!";
             var urlActual1 = (HttpContext.Current.Request.Url).ToString();
