@@ -259,8 +259,9 @@ namespace SubeCalificaciones.Services
         {
             using (db = new TP_20191CEntities())
             {
-                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Alumno") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
+                RespuestaAlumno respuesta = (from r in db.RespuestaAlumnoes.Include("Alumno").Include("Pregunta") where r.IdRespuestaAlumno == idRespuesta select r).FirstOrDefault();
                 respuesta.MejorRespuesta = true;
+                NotifyAlMejorRsta(respuesta);
 
                 long puntos = CalcularPuntosMejorRespuesta(respuesta);
                 respuesta.Puntos = puntos;
@@ -269,6 +270,41 @@ namespace SubeCalificaciones.Services
                 // Actualiza datos en la tabla Alumnos
                 ActualizarPuntosTotales(respuesta.IdAlumno, puntos);
                 ActualizarCantidadDeRespuestas(respuesta.IdAlumno, 4); // Se utiliza 4 para mejor respuesta
+            }
+        }
+
+        public static void NotifyAlMejorRsta(RespuestaAlumno rstaAl)
+        {
+            var message = new MailMessage();
+            var al = (from a in db.Alumnoes where a.IdAlumno == rstaAl.IdAlumno select a).FirstOrDefault();
+            message.From = new MailAddress(al.Email);
+            message.To.Add(new MailAddress("johnytester88@gmail.com"));
+            message.Subject = "Su Respuesta ha sido marcada como la mejor, Felicitaciones!";
+            var urlActual1 = (HttpContext.Current.Request.Url).ToString();
+            var urlToMail1 = urlActual1.Replace(("/Profesor/ElegirMejorRespuesta?idRespuesta=" + (rstaAl.IdRespuestaAlumno).ToString())
+                                             , ("/Alumno/VerRespuesta/" + (rstaAl.IdPregunta).ToString()));
+            var urlToPos = urlToMail1.Replace(("/Alumno/VerRespuesta/" + (rstaAl.IdPregunta).ToString())
+                                            , "/Alumno/");
+            var pr = (from p in db.Preguntas where p.IdPregunta == rstaAl.IdPregunta select p).FirstOrDefault();
+            message.Body = "Su respuesta ha sido marcada como la mejor." 
+                         + "<br>Pregunta: " + pr.Pregunta1
+                         + "<br>Respuesta: " + rstaAl.Respuesta
+                         + "<br>Posiciones: <a href=\"" + urlToPos + "\">Link a pocisiones</a>"
+                         + "<br>Link: <a href=\"" + urlToMail1 + "\">Link a respuesta</a>"
+                         + "<br>¡Felicitaciones!";
+            message.IsBodyHtml = true;
+            using (var smtp1 = new SmtpClient())
+            {
+                var credential1 = new NetworkCredential
+                {
+                    UserName = "johnytester88@gmail.com",
+                    Password = "asp.netmvc"
+                };
+                smtp1.Credentials = credential1;
+                smtp1.Host = "smtp.gmail.com";
+                smtp1.Port = 587;
+                smtp1.EnableSsl = true;
+                smtp1.Send(message);
             }
         }
 
