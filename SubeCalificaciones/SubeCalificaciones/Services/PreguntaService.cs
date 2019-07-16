@@ -173,6 +173,10 @@ namespace SubeCalificaciones.Services
                 message.To.Add(new MailAddress(profesorMail));
             }
             message.To.Add(new MailAddress("johnytester88@gmail.com"));
+            message.To.Add(new MailAddress("tomas.1412@gmail.com"));
+            message.To.Add(new MailAddress("1017.reyna@gmail.com"));
+            message.To.Add(new MailAddress("walther.graciano@gmail.com"));
+            message.To.Add(new MailAddress("fedemartinp@gmail.com"));
             var emailSubject = "Respuesta a Pregunta " + (ra.IdPregunta).ToString() + "-" + (ra.Orden).ToString() + "-" + al.Apellido;
             message.Subject = emailSubject;
             var pr = (from p in db.Preguntas where p.IdPregunta == ra.IdPregunta select p).FirstOrDefault();
@@ -280,6 +284,10 @@ namespace SubeCalificaciones.Services
             var pro = (from p in db.Profesors where p.IdProfesor == idProfesor select p).FirstOrDefault();
             message.From = new MailAddress(pro.Email);
             message.To.Add(new MailAddress("johnytester88@gmail.com"));
+            message.To.Add(new MailAddress("tomas.1412@gmail.com"));
+            message.To.Add(new MailAddress("1017.reyna@gmail.com"));
+            message.To.Add(new MailAddress("walther.graciano@gmail.com"));
+            message.To.Add(new MailAddress("fedemartinp@gmail.com"));
             message.Subject = "Su Respuesta ha sido marcada como la mejor, Felicitaciones!";
             var urlActual1 = (HttpContext.Current.Request.Url).ToString();
             var urlToMail1 = urlActual1.Replace(("/Profesor/ElegirMejorRespuesta?idRespuesta=" + (rstaAl.IdRespuestaAlumno).ToString())
