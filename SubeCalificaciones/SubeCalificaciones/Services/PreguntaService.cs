@@ -208,9 +208,16 @@ namespace SubeCalificaciones.Services
         {
             using (db = new TP_20191CEntities())
             {
-                Pregunta pregunta = (from p in db.Preguntas where p.IdPregunta == idPregunta select p).FirstOrDefault();
-                db.Preguntas.Remove(pregunta);
-                db.SaveChanges();
+
+                int cantidadRespuestas = (from ra in db.RespuestaAlumnoes where ra.IdPregunta == idPregunta select ra).Count();
+                if(cantidadRespuestas == 0)
+                {
+                    Pregunta pregunta = (from p in db.Preguntas where p.IdPregunta == idPregunta select p).FirstOrDefault();
+
+                    db.Preguntas.Remove(pregunta);
+                    db.SaveChanges();
+                }
+                
             }
         }
 

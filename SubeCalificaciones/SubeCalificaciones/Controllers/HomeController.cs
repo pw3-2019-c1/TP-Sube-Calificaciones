@@ -73,8 +73,8 @@ namespace SubeCalificaciones.Controllers
             var LastQuest = HomeService.GetLastQuestions();
             ViewBag.LastQuestionsRanking = new List<List<RespuestaAlumno>>()
                 {
-                    HomeService.GetQuestionRanking(LastQuest[0].Nro),
-                    HomeService.GetQuestionRanking(LastQuest[1].Nro)
+                    HomeService.GetQuestionRanking(LastQuest[0].IdPregunta),
+                    HomeService.GetQuestionRanking(LastQuest[1].IdPregunta)
                 };
             ViewBag.LastQuestionsTitle = new List<string>()
                 {

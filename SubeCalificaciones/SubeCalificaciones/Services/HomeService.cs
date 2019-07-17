@@ -36,10 +36,11 @@ namespace SubeCalificaciones.Services
         {
             using (db = new TP_20191CEntities())
             {
-                return (from ra in db.RespuestaAlumnoes.Include("Alumno")
+                var query = (from ra in db.RespuestaAlumnoes.Include("Alumno")
                         orderby ra.Puntos descending, ra.MejorRespuesta descending
                         where ra.IdPregunta == idPregunta
-                        select ra).Take(10).ToList();
+                        select ra).Take(10);
+                return query.ToList();
             }
         }
 
